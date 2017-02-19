@@ -297,8 +297,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         System.out.println("Count: " + count);
                         System.out.println("Array fill: " + arrayFill);
-                        Intent myIntent = new Intent(v.getContext(), Menu.class);
-                        startActivityForResult(myIntent, 0);//<-Closes game screen and returns to menu
+                        //Intent myIntent = new Intent(v.getContext(), Menu.class);
+                        //startActivityForResult(myIntent, 0);//<-Closes game screen and returns to menu
+
+                        Button splash = (Button) findViewById(R.id.splash);
+                        splash.setVisibility(splash.VISIBLE);
+
+                        Button splashPlay = (Button) findViewById(R.id.splashPlay);
+                        splashPlay.setVisibility(splashPlay.VISIBLE);
+
+                        Button splashHighScores = (Button) findViewById(R.id.splashHighScores);
+                        splashHighScores.setVisibility(splashHighScores.VISIBLE);
+
+                        Button splashOptions = (Button) findViewById(R.id.splashOptions);
+                        splashOptions.setVisibility(splashOptions.VISIBLE);
+
                     }
                 }
             });
