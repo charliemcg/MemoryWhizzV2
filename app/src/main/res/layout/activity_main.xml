@@ -144,14 +144,14 @@
     </TableRow>
 
     <TableRow>
-        <Button
+        <!--<Button
             android:id="@+id/buttonPlay"
             android:layout_height="120dp"
             android:layout_weight="1"
             android:layout_margin="2dp"
             android:text="Play"
             android:background="@color/green"
-            android:soundEffectsEnabled="false"/>
+            android:soundEffectsEnabled="false"/>-->
         <TextView
             android:id="@+id/score"
             android:layout_height="120dp"

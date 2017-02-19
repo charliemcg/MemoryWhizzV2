@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         //Initializing music button on splash screen
         final Button splashMusic = (Button) findViewById(R.id.splashMusic);
 
-        //Goes to play mode when "Play" clicked
+        /*//Goes to play mode when "Play" clicked
         splashPlay.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 if(Options.clickOnOff == true){
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 splashOptions.setVisibility(splashOptions.GONE);
                 splash.setVisibility(splash.GONE);
             }
-        });
+        });*/
 
         //Goes to high scores when "High Scores" clicked
         splashHighScores.setOnClickListener(new View.OnClickListener(){
@@ -155,20 +155,21 @@ public class MainActivity extends AppCompatActivity {
         final Button buttonG = (Button) this.findViewById(R.id.buttonG);
         final Button buttonH = (Button) this.findViewById(R.id.buttonH);
         final Button buttonI = (Button) this.findViewById(R.id.buttonI);
-        final Button buttonPlay = (Button) this.findViewById(R.id.buttonPlay);
 
         final Button[] btn = new Button[]{buttonA, buttonB, buttonC, buttonD, buttonE,
                                             buttonF, buttonG, buttonH, buttonI};
 
         //Clicking 'play' starts the sequence.
-        buttonPlay.setOnClickListener(new View.OnClickListener() {
+        splashPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if(Options.clickOnOff == true){
                     buttonClick.start();
                 }
+                splashPlay.setVisibility(splashPlay.GONE);
+                splashHighScores.setVisibility(splashHighScores.GONE);
+                splashOptions.setVisibility(splashOptions.GONE);
+                splash.setVisibility(splash.GONE);
                 sequence(btn, highScore, buttonClick);
-                //buttonPlay.setText("0/1");
-                v.setVisibility(v.GONE);//<-Removes "play" button during game play
                 findViewById(score).setVisibility(findViewById(score).VISIBLE);//<-Shows score
             }
         });
