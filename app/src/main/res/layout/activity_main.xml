@@ -66,6 +66,61 @@
             android:soundEffectsEnabled="false"
             android:visibility="gone"/>
 
+        <TextView
+            android:id="@+id/highScoreTextViewA"
+            android:layout_width="250dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_horizontal"
+            android:text="Hello"
+            android:textSize="20sp"
+            android:layout_marginTop="70dp"
+            android:visibility="gone"
+            android:elevation="100dp"/>
+
+        <TextView
+            android:id="@+id/highScoreTextViewB"
+            android:layout_width="250dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_horizontal"
+            android:text="Hello"
+            android:textSize="20sp"
+            android:layout_marginTop="150dp"
+            android:visibility="gone"
+            android:elevation="100dp"/>
+
+        <TextView
+            android:id="@+id/highScoreTextViewC"
+            android:layout_width="250dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_horizontal"
+            android:text="Hello"
+            android:textSize="20sp"
+            android:layout_marginTop="230dp"
+            android:visibility="gone"
+            android:elevation="100dp"/>
+
+        <TextView
+            android:id="@+id/highScoreTextViewD"
+            android:layout_width="250dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_horizontal"
+            android:text="Hello"
+            android:textSize="20sp"
+            android:layout_marginTop="310dp"
+            android:visibility="gone"
+            android:elevation="100dp"/>
+
+        <TextView
+            android:id="@+id/highScoreTextViewE"
+            android:layout_width="250dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_horizontal"
+            android:text="Hello"
+            android:textSize="20sp"
+            android:layout_marginTop="390dp"
+            android:visibility="gone"
+            android:elevation="100dp"/>
+
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -144,14 +199,6 @@
     </TableRow>
 
     <TableRow>
-        <!--<Button
-            android:id="@+id/buttonPlay"
-            android:layout_height="120dp"
-            android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="Play"
-            android:background="@color/green"
-            android:soundEffectsEnabled="false"/>-->
         <TextView
             android:id="@+id/score"
             android:layout_height="120dp"
@@ -164,6 +211,9 @@
             android:visibility="gone"/>
     </TableRow>
         </TableLayout>
+
+
+
     </FrameLayout>
 
 </TableLayout>

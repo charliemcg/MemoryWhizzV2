@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
+
+
         //Initialising strings
         final String soundOn = getResources().getString(R.string.sound_on);
         final String soundOff = getResources().getString(R.string.sound_off);
@@ -80,11 +82,40 @@ public class MainActivity extends AppCompatActivity {
         //Goes to high scores when "High Scores" clicked
         splashHighScores.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                //Initializing high score TextViews
+                final TextView highScoreTextViewA = (TextView) findViewById(R.id.highScoreTextViewA);
+                final TextView highScoreTextViewB = (TextView) findViewById(R.id.highScoreTextViewB);
+                final TextView highScoreTextViewC = (TextView) findViewById(R.id.highScoreTextViewC);
+                final TextView highScoreTextViewD = (TextView) findViewById(R.id.highScoreTextViewD);
+                final TextView highScoreTextViewE = (TextView) findViewById(R.id.highScoreTextViewE);
+
+                final int tempA = MainActivity.getHighScoreA();
+                final int tempB = MainActivity.getHighScoreB();
+                final int tempC = MainActivity.getHighScoreC();
+                final int tempD = MainActivity.getHighScoreD();
+                final int tempE = MainActivity.getHighScoreE();
+
+                //TextViews are updated to the latest high scores
+                highScoreTextViewA.setText(Integer.toString(tempA));
+                highScoreTextViewB.setText(Integer.toString(tempB));
+                highScoreTextViewC.setText(Integer.toString(tempC));
+                highScoreTextViewD.setText(Integer.toString(tempD));
+                highScoreTextViewE.setText(Integer.toString(tempE));
+
+                splashBack = true;
                 if(clickOnOff){
                     buttonClick.start();
                 }
-                Intent myIntent = new Intent(v.getContext(), HighScores.class);
-                startActivityForResult(myIntent, 0);
+                splashPlay.setVisibility(GONE);
+                splashHighScores.setVisibility(GONE);
+                splashOptions.setVisibility(GONE);
+                highScoreTextViewA.setVisibility(VISIBLE);
+                highScoreTextViewB.setVisibility(VISIBLE);
+                highScoreTextViewC.setVisibility(VISIBLE);
+                highScoreTextViewD.setVisibility(VISIBLE);
+                highScoreTextViewE.setVisibility(VISIBLE);
+                //Intent myIntent = new Intent(v.getContext(), HighScores.class);
+                //startActivityForResult(myIntent, 0);
             }
         });
 
@@ -334,6 +365,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     //Turns button white for 400 milliseconds with click sound. See 'sequence' for more information.
     private void seqAnimate(final Button btnSeq, final Button btn[], final MediaPlayer click) {
 
@@ -364,28 +396,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
    public static int getHighScoreA(){
-        int x = scoreArray[5];
-        return x;
+       return scoreArray[5];
     }
 
     public static int getHighScoreB(){
-        int x = scoreArray[4];
-        return x;
+        return scoreArray[4];
     }
 
     public static int getHighScoreC(){
-        int x = scoreArray[3];
-        return x;
+        return scoreArray[3];
     }
 
     public static int getHighScoreD(){
-        int x = scoreArray[2];
-        return x;
+        return scoreArray[2];
     }
 
     public static int getHighScoreE(){
-        int x = scoreArray[1];
-        return x;
+        return scoreArray[1];
     }
 
     public static MediaPlayer getButtonClick(){
@@ -418,11 +445,60 @@ public class MainActivity extends AppCompatActivity {
             Button splashMusic = (Button) findViewById(R.id.splashMusic);
             splashMusic.setVisibility(GONE);
 
+            TextView highScoreTextViewA = (TextView) findViewById(R.id.highScoreTextViewA);
+            highScoreTextViewA.setVisibility(GONE);
+
+            TextView highScoreTextViewB = (TextView) findViewById(R.id.highScoreTextViewB);
+            highScoreTextViewB.setVisibility(GONE);
+
+            TextView highScoreTextViewC = (TextView) findViewById(R.id.highScoreTextViewC);
+            highScoreTextViewC.setVisibility(GONE);
+
+            TextView highScoreTextViewD = (TextView) findViewById(R.id.highScoreTextViewD);
+            highScoreTextViewD.setVisibility(GONE);
+
+            TextView highScoreTextViewE = (TextView) findViewById(R.id.highScoreTextViewE);
+            highScoreTextViewE.setVisibility(GONE);
+
             splashBack = false;
         }
         else{
             super.onBackPressed();
         }
     }
+
+
+
+
+
+    /*String highScoreA = Integer.toString(tempA);
+    String highScoreB = Integer.toString(tempB);
+    String highScoreC = Integer.toString(tempC);
+    String highScoreD = Integer.toString(tempD);
+    String highScoreE = Integer.toString(tempE);*/
+
+    /*//TextViews are updated to the latest high scores
+    highScoreTextViewA.setText(Integer.toString(tempA));
+    highScoreTextViewB.setText(Integer.toString(tempB));
+    highScoreTextViewC.setText(Integer.toString(tempC));
+    highScoreTextViewD.setText(Integer.toString(tempD));
+    highScoreTextViewE.setText(Integer.toString(tempE));*/
+
+    /*//High score TextView only shows up once player actually sets one
+    if (tempA != 0){
+        highScoreTextViewA.setVisibility(highScoreTextViewA.VISIBLE);
+    }
+    if (tempB != 0){
+        highScoreTextViewB.setVisibility(highScoreTextViewB.VISIBLE);
+    }
+    if (tempC != 0){
+        highScoreTextViewC.setVisibility(highScoreTextViewC.VISIBLE);
+    }
+    if (tempD != 0){
+        highScoreTextViewD.setVisibility(highScoreTextViewD.VISIBLE);
+    }
+    if (tempE != 0){
+        highScoreTextViewE.setVisibility(highScoreTextViewE.VISIBLE);
+    }*/
 
 }

@@ -29,20 +29,20 @@ public class HighScores extends MainActivity {
         TextView highScoreTextViewE = (TextView) findViewById(R.id.highScoreTextViewE);
         highScoreTextViewE.setVisibility(highScoreTextViewE.INVISIBLE);
 
-        int tempA = Integer.valueOf(MainActivity.getHighScoreA());
+        /*int tempA = Integer.valueOf(MainActivity.getHighScoreA());
         int tempB = Integer.valueOf(MainActivity.getHighScoreB());
         int tempC = Integer.valueOf(MainActivity.getHighScoreC());
         int tempD = Integer.valueOf(MainActivity.getHighScoreD());
-        int tempE = Integer.valueOf(MainActivity.getHighScoreE());
+        int tempE = Integer.valueOf(MainActivity.getHighScoreE());*/
 
-        //TextViews are updated to the latest high scores
+        /*//TextViews are updated to the latest high scores
         highScoreTextViewA.setText(Integer.toString(tempA));
         highScoreTextViewB.setText(Integer.toString(tempB));
         highScoreTextViewC.setText(Integer.toString(tempC));
         highScoreTextViewD.setText(Integer.toString(tempD));
-        highScoreTextViewE.setText(Integer.toString(tempE));
+        highScoreTextViewE.setText(Integer.toString(tempE));*/
 
-        //High score TextView only shows up once player actually sets one
+        /*//High score TextView only shows up once player actually sets one
         if (tempA != 0){
             highScoreTextViewA.setVisibility(highScoreTextViewA.VISIBLE);
         }
@@ -57,7 +57,7 @@ public class HighScores extends MainActivity {
         }
         if (tempE != 0){
             highScoreTextViewE.setVisibility(highScoreTextViewE.VISIBLE);
-        }
+        }*/
 
     }
 
