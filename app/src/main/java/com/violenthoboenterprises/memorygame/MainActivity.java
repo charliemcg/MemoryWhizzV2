@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     int count = 0;
     //static boolean playMusic = false;
 
+    boolean splashBack = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         //Goes to options when "Options" clicked
         splashOptions.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                splashBack = true;
                 if(Options.clickOnOff == true){
                     buttonClick.start();
                 }
@@ -365,5 +368,21 @@ public class MainActivity extends AppCompatActivity {
         MediaPlayer x = getBackgroundMusic();
         return x;
     }*/
+
+    @Override
+    public void onBackPressed(){
+        if(splashBack){
+            System.out.println("Working");
+            /*splashPlay.setVisibility(splashPlay.VISIBLE);
+            splashHighScores.setVisibility(splashHighScores.VISIBLE);
+            splashOptions.setVisibility(splashOptions.VISIBLE);
+            splashSoundEffects.setVisibility(splashSoundEffects.GONE);
+            splashMusic.setVisibility(splashMusic.GONE);*/
+            splashBack = false;
+        }
+        else{
+            super.onBackPressed();
+        }
+    }
 
 }
