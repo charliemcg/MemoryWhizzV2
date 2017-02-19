@@ -369,15 +369,26 @@ public class MainActivity extends AppCompatActivity {
         return x;
     }*/
 
+    //When back button pressed in options splash screen the user is returned to
+    // the main menu splash screen
     @Override
     public void onBackPressed(){
         if(splashBack){
-            System.out.println("Working");
-            /*splashPlay.setVisibility(splashPlay.VISIBLE);
+            Button splashPlay = (Button) findViewById(R.id.splashPlay);
+            splashPlay.setVisibility(splashPlay.VISIBLE);
+
+            Button splashHighScores = (Button) findViewById(R.id.splashHighScores);
             splashHighScores.setVisibility(splashHighScores.VISIBLE);
+
+            Button splashOptions = (Button) findViewById(R.id.splashOptions);
             splashOptions.setVisibility(splashOptions.VISIBLE);
+
+            Button splashSoundEffects = (Button) findViewById(R.id.splashSoundEffects);
             splashSoundEffects.setVisibility(splashSoundEffects.GONE);
-            splashMusic.setVisibility(splashMusic.GONE);*/
+
+            Button splashMusic = (Button) findViewById(R.id.splashMusic);
+            splashMusic.setVisibility(splashMusic.GONE);
+
             splashBack = false;
         }
         else{
