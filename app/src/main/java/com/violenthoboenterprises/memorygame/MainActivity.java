@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-
+        final boolean[] highScoresEnabled = {true};
 
         //Initialising strings
         final String soundOn = getResources().getString(R.string.sound_on);
@@ -96,48 +96,52 @@ public class MainActivity extends AppCompatActivity {
                 final int tempE = MainActivity.getHighScoreE();
 
                 //TextViews are updated to the latest high scores
-
                 //High score TextView only shows up once player actually sets one
-    if (tempA != 0){
-        highScoreTextViewA.setText(Integer.toString(tempA));
-    }else{
-        highScoreTextViewA.setText(" ");
-    }
-    if (tempB != 0){
-        highScoreTextViewB.setText(Integer.toString(tempB));
-    }else{
-        highScoreTextViewB.setText(" ");
-    }
-    if (tempC != 0){
-        highScoreTextViewC.setText(Integer.toString(tempC));
-    }else{
-        highScoreTextViewC.setText(" ");
-    }
-    if (tempD != 0){
-        highScoreTextViewD.setText(Integer.toString(tempD));
-    }else{
-        highScoreTextViewD.setText(" ");
-    }
-    if (tempE != 0){
-        highScoreTextViewE.setText(Integer.toString(tempE));
-    }else{
-        highScoreTextViewE.setText(" ");
-    }
-
-                splashBack = true;
-                if(clickOnOff){
-                    buttonClick.start();
+                if(tempA == 0 && tempB == 0 && tempC == 0 && tempD == 0 && tempE == 0){
+                    Toast.makeText(MainActivity.this, "There are no high scores yet", Toast.LENGTH_SHORT).show();
+                    highScoresEnabled[0] = false;
                 }
-                splashPlay.setVisibility(GONE);
-                splashHighScores.setVisibility(GONE);
-                splashOptions.setVisibility(GONE);
-                highScoreTextViewA.setVisibility(VISIBLE);
-                highScoreTextViewB.setVisibility(VISIBLE);
-                highScoreTextViewC.setVisibility(VISIBLE);
-                highScoreTextViewD.setVisibility(VISIBLE);
-                highScoreTextViewE.setVisibility(VISIBLE);
-                //Intent myIntent = new Intent(v.getContext(), HighScores.class);
-                //startActivityForResult(myIntent, 0);
+                if (tempA != 0){
+                    highScoreTextViewA.setText(Integer.toString(tempA));
+                    highScoresEnabled[0] = true;
+                }else{
+                    highScoreTextViewA.setText(" ");
+                }
+                if (tempB != 0){
+                    highScoreTextViewB.setText(Integer.toString(tempB));
+                }else{
+                    highScoreTextViewB.setText(" ");
+                }
+                if (tempC != 0){
+                    highScoreTextViewC.setText(Integer.toString(tempC));
+                }else{
+                    highScoreTextViewC.setText(" ");
+                }
+                if (tempD != 0){
+                    highScoreTextViewD.setText(Integer.toString(tempD));
+                }else{
+                    highScoreTextViewD.setText(" ");
+                }
+                if (tempE != 0){
+                    highScoreTextViewE.setText(Integer.toString(tempE));
+                }else{
+                    highScoreTextViewE.setText(" ");
+                }
+
+                if(highScoresEnabled[0]){
+                    splashBack = true;
+                    if(clickOnOff){
+                        buttonClick.start();
+                    }
+                    splashPlay.setVisibility(GONE);
+                    splashHighScores.setVisibility(GONE);
+                    splashOptions.setVisibility(GONE);
+                    highScoreTextViewA.setVisibility(VISIBLE);
+                    highScoreTextViewB.setVisibility(VISIBLE);
+                    highScoreTextViewC.setVisibility(VISIBLE);
+                    highScoreTextViewD.setVisibility(VISIBLE);
+                    highScoreTextViewE.setVisibility(VISIBLE);
+                }
             }
         });
 
@@ -488,23 +492,4 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
-
-
-    /*//High score TextView only shows up once player actually sets one
-    if (tempA != 0){
-        highScoreTextViewA.setVisibility(highScoreTextViewA.VISIBLE);
-    }
-    if (tempB != 0){
-        highScoreTextViewB.setVisibility(highScoreTextViewB.VISIBLE);
-    }
-    if (tempC != 0){
-        highScoreTextViewC.setVisibility(highScoreTextViewC.VISIBLE);
-    }
-    if (tempD != 0){
-        highScoreTextViewD.setVisibility(highScoreTextViewD.VISIBLE);
-    }
-    if (tempE != 0){
-        highScoreTextViewE.setVisibility(highScoreTextViewE.VISIBLE);
-    }*/
-
 }
