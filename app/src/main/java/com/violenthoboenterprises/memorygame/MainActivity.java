@@ -54,6 +54,12 @@ public class MainActivity extends AppCompatActivity {
         //Initializing options button on splash screen
         final Button splashOptions = (Button) findViewById(R.id.splashOptions);
 
+        //Initializing sound effects button on splash screen
+        final Button splashSoundEffects = (Button) findViewById(R.id.splashSoundEffects);
+
+        //Initializing music button on splash screen
+        final Button splashMusic = (Button) findViewById(R.id.splashMusic);
+
         //Goes to play mode when "Play" clicked
         splashPlay.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -84,8 +90,40 @@ public class MainActivity extends AppCompatActivity {
                 if(Options.clickOnOff == true){
                     buttonClick.start();
                 }
-                Intent myIntent = new Intent(v.getContext(), Options.class);
-                startActivityForResult(myIntent, 0);
+                splashPlay.setVisibility(splashPlay.GONE);
+                splashHighScores.setVisibility(splashHighScores.GONE);
+                splashOptions.setVisibility(splashOptions.GONE);
+                splashSoundEffects.setVisibility(splashSoundEffects.VISIBLE);
+                splashMusic.setVisibility(splashMusic.VISIBLE);
+            }
+        });
+
+        //Turn sound effects on or off.
+        if(Options.clickOnOff == true){//<-Set correct text when opening screen.
+            splashSoundEffects.setText("Sound FX: On");
+        }else{
+            splashSoundEffects.setText("Sound FX: Off");
+        }
+        splashSoundEffects.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(Options.clickOnOff == true){//<-Enable or disable sound effects and set text accordingly.
+                    splashSoundEffects.setText("Sound FX: Off");
+                    Options.clickOnOff = false;
+                }else{
+                    splashSoundEffects.setText("Sound FX: On");
+                    buttonClick.start();
+                    Options.clickOnOff = true;
+                }
+            }
+        });
+
+        //Turn music on or off
+        splashMusic.setText("Music: On");
+        splashMusic.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                if(Options.clickOnOff == true){
+                    buttonClick.start();
+                }
             }
         });
 

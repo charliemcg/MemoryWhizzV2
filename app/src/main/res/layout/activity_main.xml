@@ -45,6 +45,26 @@
             android:background="@color/green"
             android:layout_marginTop="350dp"/>
 
+        <Button
+            android:id="@+id/splashSoundEffects"
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/green"
+            android:layout_marginTop="150dp"
+            android:soundEffectsEnabled="false"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/splashMusic"
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/green"
+            android:layout_marginTop="300dp"
+            android:soundEffectsEnabled="false"
+            android:visibility="gone"/>
+
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
