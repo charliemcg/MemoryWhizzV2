@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
     int count = 0;
     //static boolean playMusic = false;
 
-    boolean test = true;//To test version control
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,12 +54,38 @@ public class MainActivity extends AppCompatActivity {
         //Initializing options button on splash screen
         final Button splashOptions = (Button) findViewById(R.id.splashOptions);
 
+        //Goes to play mode when "Play" clicked
         splashPlay.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                if(Options.clickOnOff == true){
+                    buttonClick.start();
+                }
                 splashPlay.setVisibility(splashPlay.GONE);
                 splashHighScores.setVisibility(splashHighScores.GONE);
                 splashOptions.setVisibility(splashOptions.GONE);
                 splash.setVisibility(splash.GONE);
+            }
+        });
+
+        //Goes to high scores when "High Scores" clicked
+        splashHighScores.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                if(Options.clickOnOff == true){
+                    buttonClick.start();
+                }
+                Intent myIntent = new Intent(v.getContext(), HighScores.class);
+                startActivityForResult(myIntent, 0);
+            }
+        });
+
+        //Goes to options when "Options" clicked
+        splashOptions.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                if(Options.clickOnOff == true){
+                    buttonClick.start();
+                }
+                Intent myIntent = new Intent(v.getContext(), Options.class);
+                startActivityForResult(myIntent, 0);
             }
         });
 
