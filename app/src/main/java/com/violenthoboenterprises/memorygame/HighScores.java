@@ -13,7 +13,7 @@ import java.util.Collections;
  * Created by Klunj on 18/12/2016.
  */
 
-public class HighScores extends Menu {
+public class HighScores extends MainActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.high_scores);

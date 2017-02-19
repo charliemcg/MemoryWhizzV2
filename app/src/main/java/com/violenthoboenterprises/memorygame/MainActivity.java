@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
     boolean splashBack = false;
 
+    boolean clickOnOff = true;//<-Flag used on all sound effects.
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         //Goes to high scores when "High Scores" clicked
         splashHighScores.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                if(Options.clickOnOff == true){
+                if(clickOnOff == true){
                     buttonClick.start();
                 }
                 Intent myIntent = new Intent(v.getContext(), HighScores.class);
@@ -90,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         splashOptions.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 splashBack = true;
-                if(Options.clickOnOff == true){
+                if(clickOnOff == true){
                     buttonClick.start();
                 }
                 splashPlay.setVisibility(splashPlay.GONE);
@@ -102,20 +104,20 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Turn sound effects on or off.
-        if(Options.clickOnOff == true){//<-Set correct text when opening screen.
+        if(clickOnOff == true){//<-Set correct text when opening screen.
             splashSoundEffects.setText("Sound FX: On");
         }else{
             splashSoundEffects.setText("Sound FX: Off");
         }
         splashSoundEffects.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(Options.clickOnOff == true){//<-Enable or disable sound effects and set text accordingly.
+                if(clickOnOff == true){//<-Enable or disable sound effects and set text accordingly.
                     splashSoundEffects.setText("Sound FX: Off");
-                    Options.clickOnOff = false;
+                    clickOnOff = false;
                 }else{
                     splashSoundEffects.setText("Sound FX: On");
                     buttonClick.start();
-                    Options.clickOnOff = true;
+                    clickOnOff = true;
                 }
             }
         });
@@ -124,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         splashMusic.setText("Music: On");
         splashMusic.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                if(Options.clickOnOff == true){
+                if(clickOnOff == true){
                     buttonClick.start();
                 }
             }
@@ -162,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
         //Clicking 'play' starts the sequence.
         splashPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(Options.clickOnOff == true){
+                if(clickOnOff == true){
                     buttonClick.start();
                 }
                 splashPlay.setVisibility(splashPlay.GONE);
@@ -179,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
     public void clickAnimate(final Button btn, MediaPlayer click){
 
         btn.setBackgroundColor(Color.WHITE);
-        if(Options.clickOnOff == true){
+        if(clickOnOff == true){
             click.start();
         }
 
@@ -331,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
 
                 btnSeq.setBackgroundColor(Color.WHITE);
-                if(Options.clickOnOff == true){
+                if(clickOnOff == true){
                     click.start();
                 }
 
