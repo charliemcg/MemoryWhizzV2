@@ -96,11 +96,33 @@ public class MainActivity extends AppCompatActivity {
                 final int tempE = MainActivity.getHighScoreE();
 
                 //TextViews are updated to the latest high scores
-                highScoreTextViewA.setText(Integer.toString(tempA));
-                highScoreTextViewB.setText(Integer.toString(tempB));
-                highScoreTextViewC.setText(Integer.toString(tempC));
-                highScoreTextViewD.setText(Integer.toString(tempD));
-                highScoreTextViewE.setText(Integer.toString(tempE));
+
+                //High score TextView only shows up once player actually sets one
+    if (tempA != 0){
+        highScoreTextViewA.setText(Integer.toString(tempA));
+    }else{
+        highScoreTextViewA.setText(" ");
+    }
+    if (tempB != 0){
+        highScoreTextViewB.setText(Integer.toString(tempB));
+    }else{
+        highScoreTextViewB.setText(" ");
+    }
+    if (tempC != 0){
+        highScoreTextViewC.setText(Integer.toString(tempC));
+    }else{
+        highScoreTextViewC.setText(" ");
+    }
+    if (tempD != 0){
+        highScoreTextViewD.setText(Integer.toString(tempD));
+    }else{
+        highScoreTextViewD.setText(" ");
+    }
+    if (tempE != 0){
+        highScoreTextViewE.setText(Integer.toString(tempE));
+    }else{
+        highScoreTextViewE.setText(" ");
+    }
 
                 splashBack = true;
                 if(clickOnOff){
@@ -467,22 +489,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
-
-
-    /*String highScoreA = Integer.toString(tempA);
-    String highScoreB = Integer.toString(tempB);
-    String highScoreC = Integer.toString(tempC);
-    String highScoreD = Integer.toString(tempD);
-    String highScoreE = Integer.toString(tempE);*/
-
-    /*//TextViews are updated to the latest high scores
-    highScoreTextViewA.setText(Integer.toString(tempA));
-    highScoreTextViewB.setText(Integer.toString(tempB));
-    highScoreTextViewC.setText(Integer.toString(tempC));
-    highScoreTextViewD.setText(Integer.toString(tempD));
-    highScoreTextViewE.setText(Integer.toString(tempE));*/
 
     /*//High score TextView only shows up once player actually sets one
     if (tempA != 0){
