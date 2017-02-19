@@ -219,12 +219,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         TextView score = new TextView(this);
-        score = (TextView)findViewById(R.id.score);
+        score = (TextView) findViewById(R.id.score);
         final int[] seqNum = {0};//<-Index number for sequence buttons.
         final int[] k = {1};//<-This is the number of buttons which are so far available in the sequence.
         for (int j = 0; j < 9; j++){//<-Iterates over the buttons to find which one was clicked.
         final int finalJ = j;
             final TextView finalScore = score;
+            final TextView finalScore1 = score;
             btn[finalJ].setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v){
                     clickAnimate(btn[finalJ], click);
@@ -314,6 +315,8 @@ public class MainActivity extends AppCompatActivity {
 
                         Button splashOptions = (Button) findViewById(R.id.splashOptions);
                         splashOptions.setVisibility(splashOptions.VISIBLE);
+
+                        finalScore1.setText("0/1");
 
                     }
                 }

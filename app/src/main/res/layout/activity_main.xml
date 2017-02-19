@@ -157,8 +157,9 @@
             android:layout_height="120dp"
             android:layout_weight="1"
             android:layout_margin="2dp"
+            android:textAlignment="center"
+            android:textSize="50sp"
             android:text="0/1"
-            android:textSize="50dp"
             android:soundEffectsEnabled="false"
             android:visibility="gone"/>
     </TableRow>
