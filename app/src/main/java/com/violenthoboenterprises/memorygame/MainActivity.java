@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     int count = 0;
     //static boolean playMusic = false;
 
+    boolean test = true;//To test version control
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
