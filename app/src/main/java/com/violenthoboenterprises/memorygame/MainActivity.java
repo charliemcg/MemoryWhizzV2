@@ -1,16 +1,11 @@
 package com.violenthoboenterprises.memorygame;
 
-import android.app.Service;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.os.AsyncTask;
 import android.os.Handler;
-import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -20,9 +15,8 @@ import android.widget.Toast;
 import java.util.Arrays;
 import java.util.Random;
 
-import static android.R.attr.background;
-import static android.R.attr.tag;
-import static android.R.attr.x;
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 import static com.violenthoboenterprises.memorygame.R.id.score;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     public static int[] scoreArray = new int[6];
     boolean arrayFill = false;
     int count = 0;
-    //static boolean playMusic = false;
+    static boolean playMusic = false;
 
     boolean splashBack = false;
 
@@ -42,6 +36,12 @@ public class MainActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+
+        //Initialising strings
+        final String soundOn = getResources().getString(R.string.sound_on);
+        final String soundOff = getResources().getString(R.string.sound_off);
+        final String musicOn = getResources().getString(R.string.music_on);
+        final String musicOff = getResources().getString(R.string.music_off);
 
         //On click sound
         final MediaPlayer buttonClick = MediaPlayer.create(this, R.raw.buttonclick);
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         //Goes to high scores when "High Scores" clicked
         splashHighScores.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                if(clickOnOff == true){
+                if(clickOnOff){
                     buttonClick.start();
                 }
                 Intent myIntent = new Intent(v.getContext(), HighScores.class);
@@ -92,30 +92,30 @@ public class MainActivity extends AppCompatActivity {
         splashOptions.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 splashBack = true;
-                if(clickOnOff == true){
+                if(clickOnOff){
                     buttonClick.start();
                 }
-                splashPlay.setVisibility(splashPlay.GONE);
-                splashHighScores.setVisibility(splashHighScores.GONE);
-                splashOptions.setVisibility(splashOptions.GONE);
-                splashSoundEffects.setVisibility(splashSoundEffects.VISIBLE);
-                splashMusic.setVisibility(splashMusic.VISIBLE);
+                splashPlay.setVisibility(GONE);
+                splashHighScores.setVisibility(GONE);
+                splashOptions.setVisibility(GONE);
+                splashSoundEffects.setVisibility(VISIBLE);
+                splashMusic.setVisibility(VISIBLE);
             }
         });
 
         //Turn sound effects on or off.
-        if(clickOnOff == true){//<-Set correct text when opening screen.
-            splashSoundEffects.setText("Sound FX: On");
+        if(clickOnOff){//<-Set correct text when opening screen.
+            splashSoundEffects.setText(soundOn);
         }else{
-            splashSoundEffects.setText("Sound FX: Off");
+            splashSoundEffects.setText(soundOff);
         }
         splashSoundEffects.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(clickOnOff == true){//<-Enable or disable sound effects and set text accordingly.
-                    splashSoundEffects.setText("Sound FX: Off");
+                if(clickOnOff){//<-Enable or disable sound effects and set text accordingly.
+                    splashSoundEffects.setText(soundOff);
                     clickOnOff = false;
                 }else{
-                    splashSoundEffects.setText("Sound FX: On");
+                    splashSoundEffects.setText(soundOn);
                     buttonClick.start();
                     clickOnOff = true;
                 }
@@ -123,11 +123,19 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Turn music on or off
-        splashMusic.setText("Music: On");
+        splashMusic.setText(musicOff);
         splashMusic.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                if(clickOnOff == true){
+                if(clickOnOff){
                     buttonClick.start();
+                }
+                if(playMusic){
+                    splashMusic.setText(musicOff);
+                    playMusic = false;
+                }
+                else{
+                    splashMusic.setText(musicOn);
+                    playMusic = true;
                 }
             }
         });
@@ -164,15 +172,15 @@ public class MainActivity extends AppCompatActivity {
         //Clicking 'play' starts the sequence.
         splashPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(clickOnOff == true){
+                if(clickOnOff){
                     buttonClick.start();
                 }
-                splashPlay.setVisibility(splashPlay.GONE);
-                splashHighScores.setVisibility(splashHighScores.GONE);
-                splashOptions.setVisibility(splashOptions.GONE);
-                splash.setVisibility(splash.GONE);
+                splashPlay.setVisibility(GONE);
+                splashHighScores.setVisibility(GONE);
+                splashOptions.setVisibility(GONE);
+                splash.setVisibility(GONE);
                 sequence(btn, highScore, buttonClick);
-                findViewById(score).setVisibility(findViewById(score).VISIBLE);//<-Shows score
+                findViewById(score).setVisibility(VISIBLE);//<-Shows score
             }
         });
     }
@@ -181,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
     public void clickAnimate(final Button btn, MediaPlayer click){
 
         btn.setBackgroundColor(Color.WHITE);
-        if(clickOnOff == true){
+        if(clickOnOff){
             click.start();
         }
 
@@ -218,10 +226,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        TextView score = new TextView(this);
-        score = (TextView) findViewById(R.id.score);
+        //TextView score = new TextView(this);
+        TextView score = (TextView) findViewById(R.id.score);
         final int[] seqNum = {0};//<-Index number for sequence buttons.
         final int[] k = {1};//<-This is the number of buttons which are so far available in the sequence.
+        final String zero = getResources().getString(R.string.zero);
         for (int j = 0; j < 9; j++){//<-Iterates over the buttons to find which one was clicked.
         final int finalJ = j;
             final TextView finalScore = score;
@@ -247,12 +256,13 @@ public class MainActivity extends AppCompatActivity {
                                 }); k[0]++;//<-'k' is incremented to allow the player to select one button more than previous.
                                 if (k[0] > highScore[0]){//<-Checks if new high score is achieved
                                     highScore[0] = k[0];
-                                    if (showOnce[0] == true){//<-Only informs of high score once per game
+                                    if (showOnce[0]){//<-Only informs of high score once per game
                                         Toast.makeText(MainActivity.this, "New High Score!", Toast.LENGTH_SHORT).show();
                                         showOnce[0] = false;
                                     }
                                 }
-                                finalScore.setText("0/" + k[0]);
+                                String scoreReset = zero + k[0];
+                                finalScore.setText(scoreReset);
                             }
                     }
                     else {
@@ -263,8 +273,8 @@ public class MainActivity extends AppCompatActivity {
                         else{
                             Toast.makeText(MainActivity.this, "You remembered " + (k[0] - 1) + " button", Toast.LENGTH_LONG).show();
                         }
-                        for (int l = 0; l < btn.length; l++){
-                                btn[l].setEnabled(false);
+                        for (Button aBtn : btn) {
+                            aBtn.setEnabled(false);
                         }
 
                         for (int j = 0; j < 6; j++){
@@ -278,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         for (int i = 0; i < scoreArray.length; i++){
-                            if (arrayFill == false){//<-Adds all scores to array until array is full
+                            if (!arrayFill){//<-Adds all scores to array until array is full
                                 if (scoreArray[i] == 0){
                                     System.out.println("ScoreArray is " + scoreArray[i]);
                                     scoreArray[i] = k[0] - 1;
@@ -286,7 +296,7 @@ public class MainActivity extends AppCompatActivity {
                                     break;
                                 }
                             }
-                            if (arrayFill == true){//<-Only adds score to array if higher than any array value
+                            if (arrayFill){//<-Only adds score to array if higher than any array value
                                 if (scoreArray[i] < highScore[0] - 1){
                                     scoreArray[i] = highScore[0] - 1;
                                     break;
@@ -305,16 +315,16 @@ public class MainActivity extends AppCompatActivity {
                         //startActivityForResult(myIntent, 0);//<-Closes game screen and returns to menu
 
                         Button splash = (Button) findViewById(R.id.splash);
-                        splash.setVisibility(splash.VISIBLE);
+                        splash.setVisibility(VISIBLE);
 
                         Button splashPlay = (Button) findViewById(R.id.splashPlay);
-                        splashPlay.setVisibility(splashPlay.VISIBLE);
+                        splashPlay.setVisibility(VISIBLE);
 
                         Button splashHighScores = (Button) findViewById(R.id.splashHighScores);
-                        splashHighScores.setVisibility(splashHighScores.VISIBLE);
+                        splashHighScores.setVisibility(VISIBLE);
 
                         Button splashOptions = (Button) findViewById(R.id.splashOptions);
-                        splashOptions.setVisibility(splashOptions.VISIBLE);
+                        splashOptions.setVisibility(VISIBLE);
 
                         finalScore1.setText("0/1");
 
@@ -327,8 +337,8 @@ public class MainActivity extends AppCompatActivity {
     //Turns button white for 400 milliseconds with click sound. See 'sequence' for more information.
     private void seqAnimate(final Button btnSeq, final Button btn[], final MediaPlayer click) {
 
-        for (int l = 0; l < btn.length; l++){//<-Buttons are disabled while the sequence plays
-            btn[l].setEnabled(false);
+        for (Button aBtn : btn) {//<-Buttons are disabled while the sequence plays
+            aBtn.setEnabled(false);
         }
 
         new Handler().postDelayed(new Runnable() {
@@ -336,7 +346,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
 
                 btnSeq.setBackgroundColor(Color.WHITE);
-                if(clickOnOff == true){
+                if(clickOnOff){
                     click.start();
                 }
 
@@ -345,15 +355,15 @@ public class MainActivity extends AppCompatActivity {
                         btnSeq.setBackgroundColor(Color.BLACK);
                     }
                 }, 400);
-                for (int l = 0; l < btn.length; l++){
-                    btn[l].setEnabled(true);
+                for (Button aBtn : btn) {
+                    aBtn.setEnabled(true);
                 }
             }
         }, 500);
 
     }
 
-    public static int getHighScoreA(){
+   public static int getHighScoreA(){
         int x = scoreArray[5];
         return x;
     }
@@ -394,19 +404,19 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed(){
         if(splashBack){
             Button splashPlay = (Button) findViewById(R.id.splashPlay);
-            splashPlay.setVisibility(splashPlay.VISIBLE);
+            splashPlay.setVisibility(VISIBLE);
 
             Button splashHighScores = (Button) findViewById(R.id.splashHighScores);
-            splashHighScores.setVisibility(splashHighScores.VISIBLE);
+            splashHighScores.setVisibility(VISIBLE);
 
             Button splashOptions = (Button) findViewById(R.id.splashOptions);
-            splashOptions.setVisibility(splashOptions.VISIBLE);
+            splashOptions.setVisibility(VISIBLE);
 
             Button splashSoundEffects = (Button) findViewById(R.id.splashSoundEffects);
-            splashSoundEffects.setVisibility(splashSoundEffects.GONE);
+            splashSoundEffects.setVisibility(GONE);
 
             Button splashMusic = (Button) findViewById(R.id.splashMusic);
-            splashMusic.setVisibility(splashMusic.GONE);
+            splashMusic.setVisibility(GONE);
 
             splashBack = false;
         }

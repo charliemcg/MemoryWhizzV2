@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Memory Game</string>
+    <string name="sound_on">Sound FX: On</string>
+    <string name="sound_off">Sound FX: Off</string>
+    <string name="music_on">Music: On</string>
+    <string name="music_off">Music: Off</string>
+    <string name="zero">0/</string>
 </resources>
