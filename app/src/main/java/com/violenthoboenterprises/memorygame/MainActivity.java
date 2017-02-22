@@ -197,16 +197,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*MediaPlayer backgroundMusic = MediaPlayer.create(this, R.raw.demo5);
+        //Initialising background music
+        MediaPlayer backgroundMusic = MediaPlayer.create(this, R.raw.demo5);
         backgroundMusic.setLooping(true);
         backgroundMusic.setVolume(100, 100);
 
-        if (playMusic == false){
+        if (!playMusic){
             backgroundMusic.start();
             playMusic = true;
         }
 
-        if (backgroundMusic.isPlaying() == true){
+        /*if (backgroundMusic.isPlaying() == true){
             System.out.println("Music is playing");
         }else {
             System.out.println("Music is not playing");
