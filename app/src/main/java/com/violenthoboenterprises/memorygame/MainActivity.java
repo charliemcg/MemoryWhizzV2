@@ -82,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
         //Goes to high scores when "High Scores" clicked
         splashHighScores.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                if(clickOnOff){
+                    buttonClick.start();
+                }
                 //Initializing high score TextViews
                 final TextView highScoreTextViewA = (TextView) findViewById(R.id.highScoreTextViewA);
                 final TextView highScoreTextViewB = (TextView) findViewById(R.id.highScoreTextViewB);
@@ -149,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
         splashOptions.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 splashBack = true;
+                System.out.println(clickOnOff);
                 if(clickOnOff){
                     buttonClick.start();
                 }
