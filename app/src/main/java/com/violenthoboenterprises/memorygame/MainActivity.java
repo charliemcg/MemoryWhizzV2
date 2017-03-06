@@ -6,6 +6,8 @@ import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -25,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     boolean arrayFill = false;
     int count = 0;
     static boolean playMusic = true;
+
+    boolean exitGame = false;
 
     boolean splashBack = false;
 
@@ -310,27 +314,28 @@ public class MainActivity extends AppCompatActivity {
             final TextView finalScore = score;
             final TextView finalScore1 = score;
             btn[finalJ].setOnClickListener(new View.OnClickListener(){
-                public void onClick(View v){
+                public void onClick(View v) {
                     clickAnimate(btn[finalJ], click);
-                    if (btnSeq[seqNum[0]] == v){//<-Checks if correct button selected.
+                        if (btnSeq[seqNum[0]] == v) {//<-Checks if correct button selected.
                             seqNum[0]++;
                             finalScore.setText(seqNum[0] + "/" + k[0]);//<-Updates the score as player progresses
-                            if(k[0] == seqNum[0]){//<-This block entered once player has successfully selected all of the buttons which are so far available.
+                            if (k[0] == seqNum[0]) {//<-This block entered once player has successfully selected all of the buttons which are so far available.
                                 i[0] = 0;
-                                handler.post(new Runnable(){
+                                handler.post(new Runnable() {
                                     @Override
-                                    public void run(){
+                                    public void run() {
                                         seqAnimate(btnSeq[i[0]], btn, click);//<-Button sequence is replayed with a new button appended on the end
                                         i[0]++;
-                                        if(i[0] < k[0]){
+                                        if (i[0] < k[0]) {
                                             seqNum[0] = 0;//<-The index number for sequence buttons is reset. The player must now start from the beginning again.
                                             handler.postDelayed(this, 500);
                                         }
                                     }
-                                }); k[0]++;//<-'k' is incremented to allow the player to select one button more than previous.
-                                if (k[0] > highScore[0]){//<-Checks if new high score is achieved
+                                });
+                                k[0]++;//<-'k' is incremented to allow the player to select one button more than previous.
+                                if (k[0] > highScore[0]) {//<-Checks if new high score is achieved
                                     highScore[0] = k[0];
-                                    if (showOnce[0]){//<-Only informs of high score once per game
+                                    if (showOnce[0]) {//<-Only informs of high score once per game
                                         Toast.makeText(MainActivity.this, "New High Score!", Toast.LENGTH_SHORT).show();
                                         showOnce[0] = false;
                                     }
@@ -339,39 +344,38 @@ public class MainActivity extends AppCompatActivity {
                                 finalScore.setText(scoreReset);
                             }
                     }
-                    else {
+                    else{
                         //Resets the game by showing the player's final score and returning to menu.
-                        if (k[0] != 2){
+                        if (k[0] != 2) {
                             Toast.makeText(MainActivity.this, "You remembered " + (k[0] - 1) + " buttons", Toast.LENGTH_LONG).show();
-                        }
-                        else{
+                        } else {
                             Toast.makeText(MainActivity.this, "You remembered " + (k[0] - 1) + " button", Toast.LENGTH_LONG).show();
                         }
                         for (Button aBtn : btn) {
                             aBtn.setEnabled(false);
                         }
 
-                        for (int j = 0; j < 6; j++){
-                            if (scoreArray[j] != 0){
+                        for (int j = 0; j < 6; j++) {
+                            if (scoreArray[j] != 0) {
                                 count++;
                             }
                         }
 
-                        if (count >= 5){
+                        if (count >= 5) {
                             arrayFill = true;
                         }
 
-                        for (int i = 0; i < scoreArray.length; i++){
-                            if (!arrayFill){//<-Adds all scores to array until array is full
-                                if (scoreArray[i] == 0){
+                        for (int i = 0; i < scoreArray.length; i++) {
+                            if (!arrayFill) {//<-Adds all scores to array until array is full
+                                if (scoreArray[i] == 0) {
                                     System.out.println("ScoreArray is " + scoreArray[i]);
                                     scoreArray[i] = k[0] - 1;
                                     System.out.println("ScoreArray is " + scoreArray[i]);
                                     break;
                                 }
                             }
-                            if (arrayFill){//<-Only adds score to array if higher than any array value
-                                if (scoreArray[i] < highScore[0] - 1){
+                            if (arrayFill) {//<-Only adds score to array if higher than any array value
+                                if (scoreArray[i] < highScore[0] - 1) {
                                     scoreArray[i] = highScore[0] - 1;
                                     break;
                                 }
@@ -380,7 +384,7 @@ public class MainActivity extends AppCompatActivity {
 
                         Arrays.sort(scoreArray);//<-Sorts array numerically
                         System.out.println("End of high scores");
-                        for (int i = 0; i <= 5; i++){
+                        for (int i = 0; i <= 5; i++) {
                             System.out.println("Value: " + scoreArray[i] + " and index: " + i);
                         }
                         System.out.println("Count: " + count);
@@ -473,6 +477,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         if(splashBack){
+
             Button splashPlay = (Button) findViewById(R.id.splashPlay);
             splashPlay.setVisibility(VISIBLE);
 
@@ -504,8 +509,10 @@ public class MainActivity extends AppCompatActivity {
             highScoreTextViewE.setVisibility(GONE);
 
             splashBack = false;
-        }
-        else{
+        } else if (!exitGame){
+            Toast.makeText(MainActivity.this, "Press 'back' again to exit", Toast.LENGTH_LONG).show();
+            exitGame = true;
+        } else {
             super.onBackPressed();
         }
     }
