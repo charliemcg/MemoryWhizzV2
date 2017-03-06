@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     public static int[] scoreArray = new int[6];
     boolean arrayFill = false;
     int count = 0;
-    static boolean playMusic = false;
+    static boolean playMusic = true;
 
     boolean splashBack = false;
 
@@ -179,8 +179,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Initialising background music
+        final MediaPlayer backgroundMusic = MediaPlayer.create(this, R.raw.demo5);
+        backgroundMusic.setLooping(true);
+        backgroundMusic.setVolume(1.0f, 1.0f);
+        backgroundMusic.start();
+
+        splashMusic.setText(musicOn);
+
         //Turn music on or off
-        splashMusic.setText(musicOff);
+        splashMusic.setText(musicOn);
         splashMusic.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 if(clickOnOff){
@@ -188,24 +196,28 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(playMusic){
                     splashMusic.setText(musicOff);
+                    backgroundMusic.setVolume(0.0f, 0.0f);
+                    System.out.println("Music off");
                     playMusic = false;
                 }
                 else{
                     splashMusic.setText(musicOn);
+                    backgroundMusic.setVolume(1.0f, 1.0f);
+                    System.out.println("Music on");
                     playMusic = true;
                 }
             }
         });
 
-        //Initialising background music
-        MediaPlayer backgroundMusic = MediaPlayer.create(this, R.raw.demo5);
-        backgroundMusic.setLooping(true);
-        backgroundMusic.setVolume(100, 100);
-
-        if (!playMusic){
+        /*if (playMusic){
             backgroundMusic.start();
-            playMusic = true;
-        }
+            System.out.println("Start Music");
+            //playMusic = false;
+        } else {
+            backgroundMusic.stop();
+            System.out.println("Stop Music");
+            //playMusic = true;
+        }*/
 
         /*if (backgroundMusic.isPlaying() == true){
             System.out.println("Music is playing");
@@ -253,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
 
         new Handler().postDelayed(new Runnable(){
             public void run(){
-                btn.setBackgroundColor(Color.BLACK);
+                btn.setBackgroundColor(Color.CYAN);
             }
         }, 50);
     }
@@ -411,7 +423,7 @@ public class MainActivity extends AppCompatActivity {
 
                 new Handler().postDelayed(new Runnable(){
                     public void run(){
-                        btnSeq.setBackgroundColor(Color.BLACK);
+                        btnSeq.setBackgroundColor(Color.CYAN);
                     }
                 }, 400);
                 for (Button aBtn : btn) {
