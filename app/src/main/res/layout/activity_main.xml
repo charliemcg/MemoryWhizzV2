@@ -10,7 +10,10 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="@drawable/prototypetitle" />
+        android:text="Memory Whizz"
+        android:gravity="center"
+        android:textColor="@color/cyan"
+        android:textSize="50dp"/>
 
     <Button
         android:id="@+id/buttonA"
