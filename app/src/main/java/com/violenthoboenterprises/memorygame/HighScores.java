@@ -10,13 +10,13 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * Created by Klunj on 18/12/2016.
+ * Created on 18/12/2016.
  */
 
 public class HighScores extends MainActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.high_scores);
+//        setContentView(R.layout.high_scores);
 
         TextView highScoreTextViewA = (TextView) findViewById(R.id.highScoreTextViewA);
         highScoreTextViewA.setVisibility(highScoreTextViewA.INVISIBLE);
