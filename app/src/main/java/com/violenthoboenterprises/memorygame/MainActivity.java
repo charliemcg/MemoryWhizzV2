@@ -67,9 +67,10 @@ public class MainActivity extends AppCompatActivity implements TheView {
     Button[] btn;
     Button splashPlay;
     Button splashHighScores;
-    Button splashOptions;
+//    Button splashOptions;
 
     TextView score;
+    TextView pointsEarned;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +94,9 @@ public class MainActivity extends AppCompatActivity implements TheView {
         backgroundMusic.start();
 
         score = findViewById(R.id.score);
+        pointsEarned = findViewById(R.id.points);
+        pointsEarned .setText("0");
+
         //Each button is initialised and stored in an array.
         final Button buttonA = this.findViewById(R.id.buttonA);
         final Button buttonB = this.findViewById(R.id.buttonB);
@@ -201,6 +205,11 @@ public class MainActivity extends AppCompatActivity implements TheView {
     @Override
     public void updateScore(String theScore) {
         score.setText(theScore);
+    }
+
+    @Override
+    public void updatePoints(int points) {
+        pointsEarned.setText(String.valueOf(points));
     }
 
     //Checks if new high score is achieved

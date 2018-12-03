@@ -9,6 +9,7 @@ public interface TheView {
     void seqAnimate(Button btnSeq, Button[] btn);
     void clickAnimate(Button btn);
     void updateScore(String score);
+    void updatePoints(int points);
     void checkHighScore(int i, int highScore);
     void mainSplash();
     void showToast(String buttonsRememberedString);

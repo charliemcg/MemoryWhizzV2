@@ -25,13 +25,17 @@ public class ThePresenterImpl implements ThePresenter {
     private static String TAG = "ThePresenterImpl";
     private TheView theView;
     private Context context;
-//    private int count = 0;
+    //    private int count = 0;
 //    public static int[] scoreArray = new int[6];
 //    boolean arrayFill = false;
     public static int highScore = 1;
     MediaPlayer fail;
+    private int points = 0;
+    private int multiplier = 1;
+    //Used to display all intermittent values during all live score updates.
+    private int intermittentValue;
 
-    public ThePresenterImpl(TheView theView, Context context){
+    public ThePresenterImpl(TheView theView, Context context) {
         this.theView = theView;
         this.context = context;
         //Initializing fail sound.
@@ -65,12 +69,20 @@ public class ThePresenterImpl implements ThePresenter {
                     theView.clickAnimate(btn[finalJ]);
                     //Checks if correct button selected
                     if (btnSeq[seqNum[0]] == v) {
+                        //Player is awarded 9 points for every correct button selected.
+                        points = points + (9 * multiplier);
+                        theView.updatePoints(points);
                         seqNum[0]++;
                         String score = seqNum[0] + "/" + k[0];
                         theView.updateScore(score);
+                        createScoreThread(handler);
                         //This block entered once player has successfully selected
                         // all of the buttons which are so far available
                         if (k[0] == seqNum[0]) {
+                            //Player is awarded an additional 39 points for completing
+                            // an entire sequence.
+                            points = points + (39 * multiplier);
+                            theView.updatePoints(points);
                             i[0] = 0;
                             handler.post(new Runnable() {
                                 @Override
@@ -87,6 +99,9 @@ public class ThePresenterImpl implements ThePresenter {
                                     }
                                 }
                             });
+                            //Multiplier is incremented every time the player memorises
+                            //an entire sequence.
+                            multiplier++;
                             //'k' is incremented to allow the player to
                             // select one button more than previous
                             k[0]++;
@@ -115,7 +130,7 @@ public class ThePresenterImpl implements ThePresenter {
                         int minScore = highScoreViewModel.getMinScore();
                         HighScore minHighScore = highScoreViewModel.getMinHighScore(minScore);
 
-                        if(minScore < (k[0] - 1)){
+                        if (minScore < (k[0] - 1)) {
                             Calendar cal = Calendar.getInstance();
                             int day = cal.get(Calendar.DAY_OF_MONTH);
                             int month = cal.get(Calendar.MONTH) + 1;
@@ -126,9 +141,45 @@ public class ThePresenterImpl implements ThePresenter {
                             minHighScore.setDate(date);
                         }
 
+                        points = 0;
+                        multiplier = 1;
+                        intermittentValue = 0;
+
                         theView.mainSplash();
 
                     }
+                }
+            });
+
+        }
+    }
+
+    //Updates score on separate thread
+    private void createScoreThread(final Handler handler) {
+        Runnable myRunnable = new Runnable() {
+            @Override
+            public void run() {
+                updateScore(handler);
+            }
+        };
+        new Thread(myRunnable).start();
+    }
+
+    private void updateScore(Handler handler) {
+        //Displays all numbers between previous score and current score
+        for (int i = intermittentValue; i < points; i++) {
+            try {
+                //Short delay to make effect of counting up
+                Thread.sleep(5);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            final int finalI = i;
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    theView.updatePoints(finalI);
+                    intermittentValue = points;
                 }
             });
         }
