@@ -4,6 +4,7 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+//This whole class represents a HighScore entity
 @Entity(tableName = "high_scores")
 public class HighScore {
 
@@ -22,23 +23,12 @@ public class HighScore {
     }
 
     public int getId(){return id;}
-
     public void setId(int id){this.id = id;}
 
     public int getScore(){return score;}
+    public void setScore(int score){this.score = score;}
 
     public String getDate(){return date;}
-
-//    public int getId(){return id;}
-//
-//    public void setId(int id){this.id = id;}
-//
-//    public int getScore(){return score;}
-//
-    public void setScore(int score){this.score = score;}
-//
-//    public String getDate(){return date;}
-//
-//    public void setDate(String date){this.date = date;}
+    public void setDate(String date) {this.date = date;}
 
 }

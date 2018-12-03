@@ -5,7 +5,7 @@
     android:layout_height="395dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center"
-    android:background="@color/white">
+    android:background="@color/lightCyan">
 
     <Button
         android:id="@+id/closeHighScores"

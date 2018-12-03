@@ -20,11 +20,6 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".HighScores"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-
-        </activity>
     </application>
 
 </manifest>

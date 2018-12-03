@@ -10,6 +10,9 @@ import com.violenthoboenterprises.memorygame.model.HighScore;
 
 import java.util.List;
 
+/*
+ * This is the interface for the database calls
+ */
 @Dao
 public interface TheDao {
 

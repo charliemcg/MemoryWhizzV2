@@ -35,7 +35,7 @@
     android:layout_width="320dp"
     android:layout_height="395dp"
     android:layout_gravity="center"
-    android:background="@color/white">
+    android:background="@color/lightCyan">
 
     <Button
         android:id="@+id/splashPlay"
@@ -72,15 +72,14 @@
         android:soundEffectsEnabled="false"
         android:text="High Scores"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/splashOptions"
+        app:layout_constraintBottom_toTopOf="@+id/splashMusic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/splashOptions"
+        android:id="@+id/splashMusic"
         android:layout_width="250dp"
         android:layout_height="100dp"
-        android:layout_alignBottom="@+id/splash"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -89,7 +88,7 @@
         android:layout_marginBottom="24dp"
         android:background="@color/cyan"
         android:soundEffectsEnabled="false"
-        android:text="Options"
+        android:text="@string/music_on"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -15,6 +15,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+/*
+ * This is the database
+ */
 @Database(entities = {HighScore.class}, version = 1)
 public abstract class HighScoresDatabase extends RoomDatabase {
 
@@ -24,6 +27,7 @@ public abstract class HighScoresDatabase extends RoomDatabase {
 
     public static synchronized HighScoresDatabase getInstance(Context context){
         if (instance == null){
+            //Initialising the database
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     HighScoresDatabase.class, "high_scores")
                     .fallbackToDestructiveMigration()
@@ -41,6 +45,7 @@ public abstract class HighScoresDatabase extends RoomDatabase {
         }
     };
 
+    //Adding default data to the database
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
 
         private TheDao theDao;
@@ -56,11 +61,10 @@ public abstract class HighScoresDatabase extends RoomDatabase {
             int month = cal.get(Calendar.MONTH) + 1;
             int year = cal.get(Calendar.YEAR);
             String date = day + "/" + month + "/" + year;
-            theDao.insert(new HighScore(0, date));
-            theDao.insert(new HighScore(0, date));
-            theDao.insert(new HighScore(0, date));
-            theDao.insert(new HighScore(0, date));
-            theDao.insert(new HighScore(0, date));
+            //Adding 5 scores each with a value of 0
+            for(int i = 0; i < 5 ; i++){
+                theDao.insert(new HighScore(0, date));
+            }
             return null;
         }
 

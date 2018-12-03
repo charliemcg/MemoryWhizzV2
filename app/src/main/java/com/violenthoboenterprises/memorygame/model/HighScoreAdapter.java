@@ -20,6 +20,7 @@ public class HighScoreAdapter extends RecyclerView.Adapter<HighScoreAdapter.High
 
     private List<HighScore> highScores = new ArrayList<>();
 
+    //Inflate the item view
     @NonNull
     @Override
     public HighScoreHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
@@ -28,6 +29,7 @@ public class HighScoreAdapter extends RecyclerView.Adapter<HighScoreAdapter.High
         return new HighScoreHolder(itemView);
     }
 
+    //Setting values in the item view
     @Override
     public void onBindViewHolder(@NonNull HighScoreHolder holder, int position) {
         HighScore currentScore = highScores.get(position);
@@ -45,18 +47,16 @@ public class HighScoreAdapter extends RecyclerView.Adapter<HighScoreAdapter.High
         notifyDataSetChanged();
     }
 
-    public HighScore getHighScoreAt(int position){return highScores.get(position);}
+//    public HighScore getHighScoreAt(int position){return highScores.get(position);}
 
+    //Initialising textviews within the item view
     class HighScoreHolder extends RecyclerView.ViewHolder{
         private TextView textViewScore;
         private TextView textViewDate;
-
         public HighScoreHolder(View itemView) {
             super(itemView);
             textViewScore = itemView.findViewById(R.id.text_view_score);
             textViewDate = itemView.findViewById(R.id.text_view_date);
-
         }
     }
-
 }

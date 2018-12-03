@@ -11,23 +11,20 @@ import com.violenthoboenterprises.memorygame.presenter.TheDao;
 import java.util.List;
 
 /*
- * The ViewModel is persisting data if UI activity state is changed
+ * The ViewModel is for persisting data if UI activity state is changed. It calls
+ * methods in the repository.
  */
 public class HighScoreViewModel extends AndroidViewModel {
 
     private HighScoresRepository repository;
-//    private int specificHighScore;
-
     //This is for displaying data on the UI so it should be LiveData
     private LiveData<List<HighScore>> allHighScores;
-
     private int getMinScore;
 
     public HighScoreViewModel(@NonNull Application application) {
         super(application);
         repository = new HighScoresRepository(application);
         allHighScores = repository.getAllHighScores();
-//        specificHighScore = repository.getSpecificHighScore(id);
         getMinScore = repository.getMinScore();
     }
 
@@ -37,8 +34,7 @@ public class HighScoreViewModel extends AndroidViewModel {
 
     public LiveData<List<HighScore>> getAllHighScores(){return allHighScores;}
 
-    public int getSpecificScore(int id) {return
-            /*specificHighScore;*/repository.getSpecificHighScore(id);}
+//    public int getSpecificScore(int id) {return repository.getSpecificHighScore(id);}
 
     public int getMinScore() {return getMinScore;}
 

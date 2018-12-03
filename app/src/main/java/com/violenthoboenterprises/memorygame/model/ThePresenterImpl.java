@@ -2,17 +2,22 @@ package com.violenthoboenterprises.memorygame.model;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.violenthoboenterprises.memorygame.MainActivity;
+import com.violenthoboenterprises.memorygame.R;
 import com.violenthoboenterprises.memorygame.presenter.ThePresenter;
 import com.violenthoboenterprises.memorygame.view.TheView;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Random;
 
 public class ThePresenterImpl implements ThePresenter {
@@ -20,14 +25,17 @@ public class ThePresenterImpl implements ThePresenter {
     private static String TAG = "ThePresenterImpl";
     private TheView theView;
     private Context context;
-    private int count = 0;
-    public static int[] scoreArray = new int[6];
-    boolean arrayFill = false;
+//    private int count = 0;
+//    public static int[] scoreArray = new int[6];
+//    boolean arrayFill = false;
     public static int highScore = 1;
+    MediaPlayer fail;
 
     public ThePresenterImpl(TheView theView, Context context){
         this.theView = theView;
         this.context = context;
+        //Initializing fail sound.
+        fail = MediaPlayer.create(context.getApplicationContext(), R.raw.fail);
     }
 
     @Override
@@ -87,76 +95,36 @@ public class ThePresenterImpl implements ThePresenter {
                             theView.updateScore(scoreReset);
                         }
                     } else {
+                        fail.start();
                         //Resets the game by showing the player's final score and returning to menu.
+                        String buttonsRememberedString;
                         if (k[0] != 2) {
-                            Toast.makeText(context, "You remembered " + (k[0] - 1)
-                                    + " buttons", Toast.LENGTH_LONG).show();
+//                            Toast.makeText(context, "You remembered " + (k[0] - 1)
+//                                    + " buttons", Toast.LENGTH_LONG).show();
+                            buttonsRememberedString = "You remembered " + (k[0] - 1) + " buttons";
                         } else {
-                            Toast.makeText(context, "You remembered " + (k[0] - 1)
-                                    + " button", Toast.LENGTH_LONG).show();
+//                            Toast.makeText(context, "You remembered " + (k[0] - 1)
+//                                    + " button", Toast.LENGTH_LONG).show();
+                            buttonsRememberedString = "You remembered " + (k[0] - 1) + " button";
                         }
+                        theView.showToast(buttonsRememberedString);
                         for (Button aBtn : btn) {
                             aBtn.setEnabled(false);
                         }
 
-//                        for (int j = 0; j < 6; j++) {
-//                            if (scoreArray[j] != 0) {
-//                                count++;
-//                            }
-//                        }
-
-//                        for (int j = 1; j < 6; j++) {
-//                            int score = highScoreViewModel.getSpecificScore(j);
-//                            Log.i("ThePresenterImpl", "score: " + score);
-//                            if (highScoreViewModel.getSpecificScore(j) != 0) {
-//                                count++;
-//                            }
-//                        }
-
                         int minScore = highScoreViewModel.getMinScore();
-                        Log.i(TAG, "min score: " + minScore + " k[0]: " + k[0]);
                         HighScore minHighScore = highScoreViewModel.getMinHighScore(minScore);
-                        Log.i(TAG, "min score id: " + minHighScore);
 
-                        if(minScore < k[0]){
-                            Log.i(TAG, "Need to over write!");
+                        if(minScore < (k[0] - 1)){
+                            Calendar cal = Calendar.getInstance();
+                            int day = cal.get(Calendar.DAY_OF_MONTH);
+                            int month = cal.get(Calendar.MONTH) + 1;
+                            int year = cal.get(Calendar.YEAR);
+                            String date = day + "/" + month + "/" + year;
                             highScoreViewModel.update(minHighScore);
-                            minHighScore.setScore(k[0]);
+                            minHighScore.setScore(k[0] - 1);
+                            minHighScore.setDate(date);
                         }
-
-//                        if (count >= 5) {
-//                            arrayFill = true;
-//                        }
-
-//                        for (int i = 0; i < scoreArray.length; i++) {
-//                            //Adds all scores to array until array is full
-//                            if (!arrayFill) {
-//                                if (scoreArray[i] == 0) {
-//                                    System.out.println("ScoreArray is " + scoreArray[i]);
-//                                    scoreArray[i] = k[0] - 1;
-//                                    System.out.println("ScoreArray is " + scoreArray[i]);
-//                                    break;
-//                                }
-//                            }
-//                            //Only adds score to array if higher than any array value
-//                            if (arrayFill) {
-//                                if (scoreArray[i] < highScore - 1) {
-//                                    scoreArray[i] = highScore - 1;
-//                                    break;
-//                                }
-//                            }
-//                        }
-
-                        //Sorts array numerically
-//                        Arrays.sort(scoreArray);
-//                        System.out.println("End of high scores");
-//                        for (int i = 0; i <= 5; i++) {
-//                            System.out.println("Value: " + scoreArray[i] + " and index: " + i);
-//                        }
-//                        System.out.println("Count: " + count);
-//                        System.out.println("Array fill: " + arrayFill);
-//
-//                        theView.updateScore("0/1");
 
                         theView.mainSplash();
 
@@ -165,31 +133,6 @@ public class ThePresenterImpl implements ThePresenter {
             });
         }
     }
-
-//    @Override
-//    public int getHighScoreA() {
-//        return scoreArray[5];
-//    }
-//
-//    @Override
-//    public int getHighScoreB() {
-//        return scoreArray[4];
-//    }
-//
-//    @Override
-//    public int getHighScoreC() {
-//        return scoreArray[3];
-//    }
-//
-//    @Override
-//    public int getHighScoreD() {
-//        return scoreArray[2];
-//    }
-//
-//    @Override
-//    public int getHighScoreE() {
-//        return scoreArray[1];
-//    }
 
     private Button[] generateSequence(Button[] btn) {
         //An array is filled with random buttons. The order of these buttons will be the sequence.
