@@ -18,16 +18,16 @@ public class HighScores extends MainActivity {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.high_scores);
 
-        TextView highScoreTextViewA = findViewById(R.id.highScoreTextViewA);
-        highScoreTextViewA.setVisibility(highScoreTextViewA.INVISIBLE);
-        TextView highScoreTextViewB = findViewById(R.id.highScoreTextViewB);
-        highScoreTextViewB.setVisibility(highScoreTextViewB.INVISIBLE);
-        TextView highScoreTextViewC = findViewById(R.id.highScoreTextViewC);
-        highScoreTextViewC.setVisibility(highScoreTextViewC.INVISIBLE);
-        TextView highScoreTextViewD = findViewById(R.id.highScoreTextViewD);
-        highScoreTextViewD.setVisibility(highScoreTextViewD.INVISIBLE);
-        TextView highScoreTextViewE = findViewById(R.id.highScoreTextViewE);
-        highScoreTextViewE.setVisibility(highScoreTextViewE.INVISIBLE);
+//        TextView highScoreTextViewA = findViewById(R.id.highScoreTextViewA);
+//        highScoreTextViewA.setVisibility(highScoreTextViewA.INVISIBLE);
+//        TextView highScoreTextViewB = findViewById(R.id.highScoreTextViewB);
+//        highScoreTextViewB.setVisibility(highScoreTextViewB.INVISIBLE);
+//        TextView highScoreTextViewC = findViewById(R.id.highScoreTextViewC);
+//        highScoreTextViewC.setVisibility(highScoreTextViewC.INVISIBLE);
+//        TextView highScoreTextViewD = findViewById(R.id.highScoreTextViewD);
+//        highScoreTextViewD.setVisibility(highScoreTextViewD.INVISIBLE);
+//        TextView highScoreTextViewE = findViewById(R.id.highScoreTextViewE);
+//        highScoreTextViewE.setVisibility(highScoreTextViewE.INVISIBLE);
 
         /*int tempA = Integer.valueOf(MainActivity.getHighScoreA());
         int tempB = Integer.valueOf(MainActivity.getHighScoreB());

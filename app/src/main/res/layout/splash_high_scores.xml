@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="320dp"
     android:layout_height="395dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center"
     android:background="@color/white">
 
@@ -15,81 +15,92 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/highScoresLayout"
+        app:layout_constraintStart_toStartOf="@+id/recycler_view"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <LinearLayout
-        android:id="@+id/highScoresLayout"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        tools:listitem="@layout/high_score_item"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="30dp"/>
 
-        <TextView
-            android:id="@+id/highScoreTextViewA"
-            android:layout_width="250dp"
-            android:layout_height="30dp"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_vertical"
-            android:layout_weight="1"
-            android:text="Blah"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="20sp"/>
+    <!--<LinearLayout-->
+        <!--android:id="@+id/highScoresLayout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--android:layout_marginTop="8dp">-->
 
-        <TextView
-            android:id="@+id/highScoreTextViewB"
-            android:layout_width="250dp"
-            android:layout_height="30dp"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_vertical"
-            android:layout_weight="1"
-            android:text="Blah"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="20sp"/>
+        <!--<TextView-->
+            <!--android:id="@+id/highScoreTextViewA"-->
+            <!--android:layout_width="250dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="Blah"-->
+            <!--android:textAlignment="center"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:textSize="20sp"/>-->
 
-        <TextView
-            android:id="@+id/highScoreTextViewC"
-            android:layout_width="250dp"
-            android:layout_height="30dp"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_vertical"
-            android:layout_weight="1"
-            android:text="Blah"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="20sp"/>
+        <!--<TextView-->
+            <!--android:id="@+id/highScoreTextViewB"-->
+            <!--android:layout_width="250dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="Blah"-->
+            <!--android:textAlignment="center"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:textSize="20sp"/>-->
 
-        <TextView
-            android:id="@+id/highScoreTextViewD"
-            android:layout_width="250dp"
-            android:layout_height="30dp"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_vertical"
-            android:layout_weight="1"
-            android:text="Blah"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="20sp"/>
+        <!--<TextView-->
+            <!--android:id="@+id/highScoreTextViewC"-->
+            <!--android:layout_width="250dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="Blah"-->
+            <!--android:textAlignment="center"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:textSize="20sp"/>-->
 
-        <TextView
-            android:id="@+id/highScoreTextViewE"
-            android:layout_width="250dp"
-            android:layout_height="30dp"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_vertical"
-            android:layout_weight="1"
-            android:text="Blah"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="20sp"/>
+        <!--<TextView-->
+            <!--android:id="@+id/highScoreTextViewD"-->
+            <!--android:layout_width="250dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="Blah"-->
+            <!--android:textAlignment="center"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:textSize="20sp"/>-->
 
-    </LinearLayout>
+        <!--<TextView-->
+            <!--android:id="@+id/highScoreTextViewE"-->
+            <!--android:layout_width="250dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="Blah"-->
+            <!--android:textAlignment="center"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:textSize="20sp"/>-->
+
+    <!--</LinearLayout>-->
 
 </android.support.constraint.ConstraintLayout>
