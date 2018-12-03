@@ -115,12 +115,13 @@ public class ThePresenterImpl implements ThePresenter {
 
                         int minScore = highScoreViewModel.getMinScore();
                         Log.i(TAG, "min score: " + minScore + " k[0]: " + k[0]);
-                        int testMinScoreIdCall = highScoreViewModel.getMinScoreId(minScore);
-                        Log.i(TAG, "min score id: " + testMinScoreIdCall);
+                        HighScore minHighScore = highScoreViewModel.getMinHighScore(minScore);
+                        Log.i(TAG, "min score id: " + minHighScore);
 
                         if(minScore < k[0]){
                             Log.i(TAG, "Need to over write!");
-                            highScoreViewModel.update();
+                            highScoreViewModel.update(minHighScore);
+                            minHighScore.setScore(k[0]);
                         }
 
 //                        if (count >= 5) {

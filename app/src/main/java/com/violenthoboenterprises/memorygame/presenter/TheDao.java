@@ -28,6 +28,7 @@ public interface TheDao {
     @Query("SELECT MIN(score) FROM high_scores")
     int getMinScore();
 
-    @Query("SELECT MIN(id) FROM high_scores WHERE score = :minScore")
-    int getMinScoreId(int minScore);
+    @Query("SELECT * FROM high_scores WHERE score = :minScore")
+    HighScore getMinHighScore(int minScore);
+
 }

@@ -201,6 +201,7 @@ public class MainActivity extends AppCompatActivity implements TheView {
                 thePresenter.sequence(btn, highScoreViewModel/*, highScore, buttonClick*/);
                 score.setVisibility(VISIBLE);//<-Shows score
                 dialog.dismiss();
+                score.setText("0/0");
 
             }
         });

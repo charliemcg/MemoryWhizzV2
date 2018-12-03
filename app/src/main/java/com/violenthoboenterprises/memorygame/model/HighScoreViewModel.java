@@ -42,5 +42,5 @@ public class HighScoreViewModel extends AndroidViewModel {
 
     public int getMinScore() {return getMinScore;}
 
-    public int getMinScoreId(int minScore) { return repository.getMinScoreId(minScore);}
+    public HighScore getMinHighScore(int minScore) { return repository.getMinHighScore(minScore);}
 }

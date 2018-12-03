@@ -42,13 +42,6 @@ public class HighScoresRepository {
     public int getSpecificHighScore(final int id) {
         AsyncTask<Integer, Void, Integer> result = new GetSpecificHighScoreAsyncTask(theDao, id).execute(id);
         int intResult = 0;
-//        try {
-//            Log.i("Blahblah", "blah: " + blah.get());
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        } catch (ExecutionException e) {
-//            e.printStackTrace();
-//        }
         try {
             intResult = result.get();
             return intResult;
@@ -74,19 +67,21 @@ public class HighScoresRepository {
         return intResult;
     }
 
-    public int getMinScoreId(int minScore) {
-        AsyncTask<Integer, Void, Integer> result = new GetMinScoreIdAsyncTask(theDao, minScore).execute(minScore);
-        int intResult = 0;
+    public HighScore getMinHighScore(int minScore) {
+        AsyncTask<Integer, Void, HighScore> result = new GetMinHighScoreAsyncTask(theDao, minScore).execute(minScore);
+        HighScore highScoreResult = null;
         try{
-            intResult = result.get();
-            return intResult;
+            highScoreResult = result.get();
+            return highScoreResult;
         }catch (InterruptedException e){
             e.printStackTrace();
         }catch(ExecutionException e){
             e.printStackTrace();
         }
-        return intResult;
+        return highScoreResult;
     }
+
+    /**********************************************************************************************/
 
     private static class GetMinScore extends AsyncTask<Void, Void, Integer>{
         private TheDao theDao;
@@ -150,17 +145,22 @@ public class HighScoresRepository {
         }
     }
 
-    private static class GetMinScoreIdAsyncTask extends AsyncTask<Integer, Void, Integer>{
+    private static class GetMinHighScoreAsyncTask extends AsyncTask<Integer, Void, HighScore>{
         private TheDao theDao;
         private int minScore;
-        private GetMinScoreIdAsyncTask(TheDao theDao, int minScore){
+        private GetMinHighScoreAsyncTask(TheDao theDao, int minScore){
             this.theDao = theDao;
             this.minScore = minScore;
         }
+
         @Override
-        protected Integer doInBackground(Integer... integers){
-            return theDao.getMinScoreId(minScore);
+        protected HighScore doInBackground(Integer... integers) {
+            return theDao.getMinHighScore(minScore);
         }
+//        @Override
+//        protected HighScore doInBackground(HighScore... highScores){
+//            return theDao.getMinHighScore(minScore);
+//        }
     }
 
 //    public int getMinScore() {return minScore;}

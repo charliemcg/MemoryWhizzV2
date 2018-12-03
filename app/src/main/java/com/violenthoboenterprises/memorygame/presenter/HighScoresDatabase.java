@@ -53,7 +53,7 @@ public abstract class HighScoresDatabase extends RoomDatabase {
         protected Void doInBackground(Void... voids) {
             Calendar cal = Calendar.getInstance();
             int day = cal.get(Calendar.DAY_OF_MONTH);
-            int month = cal.get(Calendar.MONTH);
+            int month = cal.get(Calendar.MONTH) + 1;
             int year = cal.get(Calendar.YEAR);
             String date = day + "/" + month + "/" + year;
             theDao.insert(new HighScore(0, date));
