@@ -1,7 +1,6 @@
 package com.violenthoboenterprises.memorygame;
 
 import android.app.Dialog;
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -14,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -23,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.violenthoboenterprises.memorygame.model.HighScore;
@@ -80,6 +77,16 @@ public class MainActivity extends AppCompatActivity implements TheView {
     Button splashPlay;
     Button splashHighScores;
 
+    Button buttonA;
+    Button buttonB;
+    Button buttonC;
+    Button buttonD;
+    Button buttonE;
+    Button buttonF;
+    Button buttonG;
+    Button buttonH;
+    Button buttonI;
+
     TextView score;
     TextView pointsEarned;
 
@@ -94,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements TheView {
                 this.getApplicationContext());
         highScoreViewModel = ViewModelProviders.of(this).get(HighScoreViewModel.class);
 
+        //Music status is saved in shared preferences
         preferences = this.getSharedPreferences(
                 "com.violenthoboenterprises.memorygame", Context.MODE_PRIVATE);
 
@@ -104,8 +112,8 @@ public class MainActivity extends AppCompatActivity implements TheView {
                 (AdRequest.DEVICE_ID_EMULATOR)*/.build();
         //Initializing banner ad.
         bannerAd = findViewById(R.id.bannerAdView);
-//        banRequest = new AdRequest.Builder().build();//TODO enable this line and remove below line
-        banRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+        banRequest = new AdRequest.Builder().build();//TODO enable this line and remove below line
+//        banRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
         bannerAd.loadAd(banRequest);
 
         playMusic = preferences.getBoolean(MUSIC_STATE_KEY, true);
@@ -124,15 +132,15 @@ public class MainActivity extends AppCompatActivity implements TheView {
         pointsEarned.setText("0");
 
         //Each button is initialised and stored in an array.
-        final Button buttonA = this.findViewById(R.id.buttonA);
-        final Button buttonB = this.findViewById(R.id.buttonB);
-        final Button buttonC = this.findViewById(R.id.buttonC);
-        final Button buttonD = this.findViewById(R.id.buttonD);
-        final Button buttonE = this.findViewById(R.id.buttonE);
-        final Button buttonF = this.findViewById(R.id.buttonF);
-        final Button buttonG = this.findViewById(R.id.buttonG);
-        final Button buttonH = this.findViewById(R.id.buttonH);
-        final Button buttonI = this.findViewById(R.id.buttonI);
+        buttonA = this.findViewById(R.id.buttonA);
+        buttonB = this.findViewById(R.id.buttonB);
+        buttonC = this.findViewById(R.id.buttonC);
+        buttonD = this.findViewById(R.id.buttonD);
+        buttonE = this.findViewById(R.id.buttonE);
+        buttonF = this.findViewById(R.id.buttonF);
+        buttonG = this.findViewById(R.id.buttonG);
+        buttonH = this.findViewById(R.id.buttonH);
+        buttonI = this.findViewById(R.id.buttonI);
         btn = new Button[]{buttonA, buttonB, buttonC, buttonD, buttonE,
                 buttonF, buttonG, buttonH, buttonI};
 
@@ -233,6 +241,7 @@ public class MainActivity extends AppCompatActivity implements TheView {
         score.setText("Buttons: " + theScore);
     }
 
+    //Display the updated points
     @Override
     public void updatePoints(int points) {
         pointsEarned.setText(String.valueOf("Points: " + points));
@@ -328,6 +337,7 @@ public class MainActivity extends AppCompatActivity implements TheView {
         dialog.show();
     }
 
+    //Create custom toast
     @Override
     public void showToast(String buttonsRememberedString) {
         Toast toast = Toast.makeText(MainActivity.this, "    " + buttonsRememberedString + "    ",
@@ -340,6 +350,7 @@ public class MainActivity extends AppCompatActivity implements TheView {
         toast.show();
     }
 
+    //Banner should only display during game play
     @Override
     public void toggleBanner(boolean showBanner) {
         //Banner ad is disabled during game play.

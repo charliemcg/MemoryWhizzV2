@@ -1,36 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:layout_width="320dp"--><!--android:layout_height="395dp"--><!--android:gravity="center"--><!--android:orientation="vertical">-->
-
-<!--<LinearLayout--><!--android:layout_width="match_parent"--><!--android:layout_height="60dp"--><!--android:background="@color/lightTurquoise"--><!--android:orientation="horizontal">-->
-
-<!--<ImageView--><!--android:layout_width="60dp"--><!--android:layout_height="60dp"--><!--android:src="@drawable/ic_launcher_og" />-->
-
-<!--<LinearLayout--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:gravity="center_vertical"--><!--android:orientation="vertical">-->
-
-<!--<TextView--><!--android:layout_width="match_parent"--><!--android:layout_height="35dp"--><!--android:layout_marginLeft="10dp"--><!--android:gravity="center_vertical"--><!--android:text="Upgrade to pro!"--><!--android:textColor="@color/black"--><!--android:textSize="25sp" />-->
-
-<!--&lt;!&ndash;<TextView&ndash;&gt;--><!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;--><!--&lt;!&ndash;android:layout_height="25dp"&ndash;&gt;--><!--&lt;!&ndash;android:text="@string/excusesAreForTheWeak"&ndash;&gt;--><!--&lt;!&ndash;android:gravity="center_vertical"&ndash;&gt;--><!--&lt;!&ndash;android:layout_marginLeft="10dp"&ndash;&gt;--><!--&lt;!&ndash;android:textColor="@color/dark_gray"/>&ndash;&gt;-->
-
-<!--</LinearLayout>-->
-
-<!--</LinearLayout>-->
-
-<!--&lt;!&ndash;<TextView&ndash;&gt;--><!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;--><!--&lt;!&ndash;android:layout_height="70dp"&ndash;&gt;--><!--&lt;!&ndash;android:layout_gravity="center"&ndash;&gt;--><!--&lt;!&ndash;android:gravity="center"&ndash;&gt;--><!--&lt;!&ndash;android:text="Upgrade to pro!"&ndash;&gt;--><!--&lt;!&ndash;android:textColor="@color/black"&ndash;&gt;--><!--&lt;!&ndash;android:textSize="25dp"&ndash;&gt;--><!--&lt;!&ndash;android:textAlignment="center"&ndash;&gt;--><!--&lt;!&ndash;android:background="@color/lightTurquoise"/>&ndash;&gt;-->
-
-<!--<ImageView--><!--android:layout_width="match_parent"--><!--android:layout_height="200dp"--><!--android:background="@color/lightTurquoise"--><!--android:contentDescription="@string/accessYellowShoppingCart"--><!--android:src="@drawable/purchase_graphic" />-->
-
-<!--<TextView--><!--android:layout_width="match_parent"--><!--android:layout_height="85dp"--><!--android:background="@color/lightTurquoise"--><!--android:text=" Remove all ads. Set unlimited reminders. Get notifications on your device."--><!--android:textAlignment="center"--><!--android:textColor="@color/black"--><!--android:textSize="20dp" />-->
-
-<!--<LinearLayout--><!--android:layout_width="match_parent"--><!--android:layout_height="50dp"--><!--android:layout_gravity="center"--><!--android:orientation="horizontal">-->
-
-<!--<Button--><!--android:id="@+id/negative"--><!--android:layout_width="0dp"--><!--android:layout_height="match_parent"--><!--android:layout_weight="1"--><!--android:background="@drawable/layout_border"--><!--android:clickable="true"--><!--android:text="@string/later"--><!--android:textColor="@color/black"--><!--android:textSize="15sp" />-->
-
-<!--<Button--><!--android:id="@+id/positive"--><!--android:layout_width="0dp"--><!--android:layout_height="match_parent"--><!--android:layout_weight="1"--><!--android:background="@drawable/layout_border"--><!--android:clickable="true"--><!--android:text="Buy now!"--><!--android:textColor="@color/black"--><!--android:textSize="20sp" />-->
-
-<!--</LinearLayout>-->
-
-<!--</LinearLayout>-->
-
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="320dp"
     android:layout_height="395dp"

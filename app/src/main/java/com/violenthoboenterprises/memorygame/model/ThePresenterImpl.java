@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.violenthoboenterprises.memorygame.MainActivity;
 import com.violenthoboenterprises.memorygame.R;
 import com.violenthoboenterprises.memorygame.presenter.ThePresenter;
@@ -46,6 +48,9 @@ public class ThePresenterImpl implements ThePresenter {
     //Used to display all intermittent values during all live score updates.
     private int intermittentValue;
 
+    //Is incremented with every game play. Interstitial shows when certain values are reached.
+    int showInterstitial= 0;
+
     public ThePresenterImpl(TheView theView, Context context) {
         this.theView = theView;
         this.context = context;
@@ -55,6 +60,15 @@ public class ThePresenterImpl implements ThePresenter {
 
     @Override
     public void sequence(final Button[] btn, final HighScoreViewModel highScoreViewModel) {
+
+        //Initializing interstitial ad.
+        final InterstitialAd interstitialAd = new InterstitialAd(context);
+        interstitialAd.setAdUnitId(context.getResources().getString(R.string.interstitial_ad_unit_id));
+        final AdRequest intRequest = new AdRequest.Builder()/*.addTestDevice
+                (AdRequest.DEVICE_ID_EMULATOR)*/.build();
+
+        //New interstitial ad is loaded.
+        interstitialAd.loadAd(intRequest);
 
 //        //Initializing interstitial ad.
 //        interstitialAd = new InterstitialAd(context);
@@ -176,6 +190,16 @@ public class ThePresenterImpl implements ThePresenter {
                         points = 0;
                         multiplier = 1;
                         intermittentValue = 0;
+
+                        //Interstitial is displayed after the 1st, 5th and 20th game.
+                        if(interstitialAd.isLoaded() && (showInterstitial == 1 ||
+                                showInterstitial == 7 || showInterstitial == 20)){
+                            interstitialAd.show();
+                        }
+
+                        //Incremented after every game to determine when interstitials
+                        //should be shown.
+                        showInterstitial++;
 
                         theView.updateScore("");
                         theView.updatePoints(0);
