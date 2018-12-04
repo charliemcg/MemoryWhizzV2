@@ -2,8 +2,10 @@ package com.violenthoboenterprises.memorygame.model;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.opengl.Visibility;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
@@ -20,15 +22,24 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Random;
 
+import static android.view.View.GONE;
+
 public class ThePresenterImpl implements ThePresenter {
 
     private static String TAG = "ThePresenterImpl";
+    public SharedPreferences preferences;
+    public static String HIGH_SCORE_KEY = "score_key";
     private TheView theView;
     private Context context;
-    //    private int count = 0;
-//    public static int[] scoreArray = new int[6];
-//    boolean arrayFill = false;
-    public static int highScore = 1;
+
+//    //Initializing interstitial ad.
+//    InterstitialAd interstitialAd;
+//    AdRequest intRequest;
+//    //Initializing banner ad.
+//    AdView bannerAd;
+//    AdRequest banRequest;
+
+    public static int highScore;
     MediaPlayer fail;
     private int points = 0;
     private int multiplier = 1;
@@ -45,7 +56,31 @@ public class ThePresenterImpl implements ThePresenter {
     @Override
     public void sequence(final Button[] btn, final HighScoreViewModel highScoreViewModel) {
 
+//        //Initializing interstitial ad.
+//        interstitialAd = new InterstitialAd(context);
+//        interstitialAd.setAdUnitId(context.getResources().getString(R.string.interstitial_ad_unit_id));
+//        intRequest = new AdRequest.Builder()/*.addTestDevice
+//                (AdRequest.DEVICE_ID_EMULATOR)*/.build();
+//        //Initializing banner ad.
+//        bannerAd = theView.findViewById(R.id.adView);
+//        banRequest = new AdRequest.Builder()/*.addTestDevice
+//                (AdRequest.DEVICE_ID_EMULATOR)*/.build();
+//        bannerAd.loadAd(banRequest);
+
+        theView.toggleBanner(false);
+
         final Button[] btnSeq = generateSequence(btn);
+
+        preferences = context.getSharedPreferences(
+                "com.violenthoboenterprises.memorygame", Context.MODE_PRIVATE);
+
+        highScore = preferences.getInt(HIGH_SCORE_KEY, 1);
+
+//        //Banner ad is disabled during game play.
+//        bannerAd.setVisibility(GONE);
+//
+//        //New interstitial ad is loaded.
+//        interstitialAd.loadAd(intRequest);
 
         //Sequence is played by lighting up one button at a time.
         final int[] i = {0};
@@ -114,12 +149,8 @@ public class ThePresenterImpl implements ThePresenter {
                         //Resets the game by showing the player's final score and returning to menu.
                         String buttonsRememberedString;
                         if (k[0] != 2) {
-//                            Toast.makeText(context, "You remembered " + (k[0] - 1)
-//                                    + " buttons", Toast.LENGTH_LONG).show();
                             buttonsRememberedString = "You remembered " + (k[0] - 1) + " buttons";
                         } else {
-//                            Toast.makeText(context, "You remembered " + (k[0] - 1)
-//                                    + " button", Toast.LENGTH_LONG).show();
                             buttonsRememberedString = "You remembered " + (k[0] - 1) + " button";
                         }
                         theView.showToast(buttonsRememberedString);
@@ -130,20 +161,24 @@ public class ThePresenterImpl implements ThePresenter {
                         int minScore = highScoreViewModel.getMinScore();
                         HighScore minHighScore = highScoreViewModel.getMinHighScore(minScore);
 
-                        if (minScore < (k[0] - 1)) {
+                        if (minScore < /*(k[0] - 1)*/points) {
                             Calendar cal = Calendar.getInstance();
                             int day = cal.get(Calendar.DAY_OF_MONTH);
                             int month = cal.get(Calendar.MONTH) + 1;
                             int year = cal.get(Calendar.YEAR);
                             String date = day + "/" + month + "/" + year;
                             highScoreViewModel.update(minHighScore);
-                            minHighScore.setScore(k[0] - 1);
+//                            minHighScore.setScore(k[0] - 1);
+                            minHighScore.setScore(points - 1);
                             minHighScore.setDate(date);
                         }
 
                         points = 0;
                         multiplier = 1;
                         intermittentValue = 0;
+
+                        theView.updateScore("");
+                        theView.updatePoints(0);
 
                         theView.mainSplash();
 
@@ -152,6 +187,12 @@ public class ThePresenterImpl implements ThePresenter {
             });
 
         }
+    }
+
+    @Override
+    public void updateHighScore(int i) {
+        preferences.edit().putInt(HIGH_SCORE_KEY, i).apply();
+        highScore = i;
     }
 
     //Updates score on separate thread

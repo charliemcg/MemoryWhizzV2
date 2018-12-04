@@ -11,4 +11,5 @@ public interface ThePresenter {
 
     void sequence(Button[] btn, HighScoreViewModel highScoreViewModel);
 
+    void updateHighScore(int i);
 }

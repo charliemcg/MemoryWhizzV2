@@ -10,17 +10,15 @@ import android.support.annotation.NonNull;
 
 import com.violenthoboenterprises.memorygame.model.HighScore;
 
-import java.time.LocalDateTime;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 /*
  * This is the database
  */
-@Database(entities = {HighScore.class}, version = 1)
+@Database(entities = {HighScore.class}, version = 3)
 public abstract class HighScoresDatabase extends RoomDatabase {
 
+    //There is only one database instance
     private static HighScoresDatabase instance;
 
     public abstract TheDao theDao();

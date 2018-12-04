@@ -1,9 +1,11 @@
 package com.violenthoboenterprises.memorygame;
 
 import android.app.Dialog;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Handler;
@@ -13,15 +15,17 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.violenthoboenterprises.memorygame.model.HighScore;
 import com.violenthoboenterprises.memorygame.model.HighScoreAdapter;
 import com.violenthoboenterprises.memorygame.model.HighScoreViewModel;
@@ -29,13 +33,10 @@ import com.violenthoboenterprises.memorygame.model.ThePresenterImpl;
 import com.violenthoboenterprises.memorygame.presenter.ThePresenter;
 import com.violenthoboenterprises.memorygame.view.TheView;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static com.violenthoboenterprises.memorygame.R.id.score;
 
 /**
  * Created on 18/12/2016.
@@ -43,13 +44,25 @@ import static com.violenthoboenterprises.memorygame.R.id.score;
 //MainActivity is mainly for UI events such as getting user input and displaying UI changes
 public class MainActivity extends AppCompatActivity implements TheView {
 
+    private static String TAG = "MainActivity";
+
     //Presenter is the interface with the business logic methods
     private ThePresenter thePresenter;
     //ViewModel is used for data persistence
     private HighScoreViewModel highScoreViewModel;
 
+    public SharedPreferences preferences;
+    public static String MUSIC_STATE_KEY = "key";
+
+    //Initializing interstitial ad.
+    InterstitialAd interstitialAd;
+    AdRequest intRequest;
+    //Initializing banner ad.
+    AdView bannerAd;
+    AdRequest banRequest;
+
     //Music is playing by default
-    static boolean playMusic = true;
+    static boolean playMusic;
     //Back button shows a warning on click but only during game play
     boolean exitGame = false;
     //Flag used on all sound effects.
@@ -58,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements TheView {
     boolean showOnce;
 
     //On click sound
-//    MediaPlayer buttonClick;
     MediaPlayer backgroundMusic;
     MediaPlayer highScoreJingle;
     MediaPlayer[] buttonClick;
@@ -67,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements TheView {
     Button[] btn;
     Button splashPlay;
     Button splashHighScores;
-//    Button splashOptions;
 
     TextView score;
     TextView pointsEarned;
@@ -82,8 +93,23 @@ public class MainActivity extends AppCompatActivity implements TheView {
         thePresenter = new ThePresenterImpl(MainActivity.this,
                 this.getApplicationContext());
         highScoreViewModel = ViewModelProviders.of(this).get(HighScoreViewModel.class);
+
+        preferences = this.getSharedPreferences(
+                "com.violenthoboenterprises.memorygame", Context.MODE_PRIVATE);
+
+        //Initializing interstitial ad.
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId(getResources().getString(R.string.interstitial_ad_unit_id));
+        intRequest = new AdRequest.Builder()/*.addTestDevice
+                (AdRequest.DEVICE_ID_EMULATOR)*/.build();
+        //Initializing banner ad.
+        bannerAd = findViewById(R.id.bannerAdView);
+//        banRequest = new AdRequest.Builder().build();//TODO enable this line and remove below line
+        banRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+        bannerAd.loadAd(banRequest);
+
+        playMusic = preferences.getBoolean(MUSIC_STATE_KEY, true);
         showOnce = true;
-//        buttonClick = MediaPlayer.create(this, R.raw.buttonclick);
         //High score sound
         highScoreJingle = MediaPlayer.create(this, R.raw.highscorejingle);
         highScoreJingle.setVolume(0.5f, 0.5f);
@@ -95,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements TheView {
 
         score = findViewById(R.id.score);
         pointsEarned = findViewById(R.id.points);
-        pointsEarned .setText("0");
+        pointsEarned.setText("0");
 
         //Each button is initialised and stored in an array.
         final Button buttonA = this.findViewById(R.id.buttonA);
@@ -137,23 +163,23 @@ public class MainActivity extends AppCompatActivity implements TheView {
             public void run() {
                 btnSeq.setBackgroundColor(Color.WHITE);
                 if (clickOnOff) {
-                    if(btnSeq.equals(btn[0])){
+                    if (btnSeq.equals(btn[0])) {
                         buttonClick[0].start();
-                    }else if(btnSeq.equals(btn[1])){
+                    } else if (btnSeq.equals(btn[1])) {
                         buttonClick[1].start();
-                    }else if(btnSeq.equals(btn[2])){
+                    } else if (btnSeq.equals(btn[2])) {
                         buttonClick[2].start();
-                    }else if(btnSeq.equals(btn[3])){
+                    } else if (btnSeq.equals(btn[3])) {
                         buttonClick[3].start();
-                    }else if(btnSeq.equals(btn[4])){
+                    } else if (btnSeq.equals(btn[4])) {
                         buttonClick[4].start();
-                    }else if(btnSeq.equals(btn[5])){
+                    } else if (btnSeq.equals(btn[5])) {
                         buttonClick[5].start();
-                    }else if(btnSeq.equals(btn[6])){
+                    } else if (btnSeq.equals(btn[6])) {
                         buttonClick[6].start();
-                    }else if(btnSeq.equals(btn[7])){
+                    } else if (btnSeq.equals(btn[7])) {
                         buttonClick[7].start();
-                    }else if(btnSeq.equals(btn[8])){
+                    } else if (btnSeq.equals(btn[8])) {
                         buttonClick[8].start();
                     }
                 }
@@ -174,23 +200,23 @@ public class MainActivity extends AppCompatActivity implements TheView {
     public void clickAnimate(final Button theBtn) {
         theBtn.setBackgroundColor(Color.WHITE);
         if (clickOnOff) {
-            if(theBtn.equals(btn[0])){
+            if (theBtn.equals(btn[0])) {
                 buttonClick[0].start();
-            }else if(theBtn.equals(btn[1])){
+            } else if (theBtn.equals(btn[1])) {
                 buttonClick[1].start();
-            }else if(theBtn.equals(btn[2])){
+            } else if (theBtn.equals(btn[2])) {
                 buttonClick[2].start();
-            }else if(theBtn.equals(btn[3])){
+            } else if (theBtn.equals(btn[3])) {
                 buttonClick[3].start();
-            }else if(theBtn.equals(btn[4])){
+            } else if (theBtn.equals(btn[4])) {
                 buttonClick[4].start();
-            }else if(theBtn.equals(btn[5])){
+            } else if (theBtn.equals(btn[5])) {
                 buttonClick[5].start();
-            }else if(theBtn.equals(btn[6])){
+            } else if (theBtn.equals(btn[6])) {
                 buttonClick[6].start();
-            }else if(theBtn.equals(btn[7])){
+            } else if (theBtn.equals(btn[7])) {
                 buttonClick[7].start();
-            }else if(theBtn.equals(btn[8])){
+            } else if (theBtn.equals(btn[8])) {
                 buttonClick[8].start();
             }
         }
@@ -204,12 +230,12 @@ public class MainActivity extends AppCompatActivity implements TheView {
     //Display the updated score
     @Override
     public void updateScore(String theScore) {
-        score.setText(theScore);
+        score.setText("Buttons: " + theScore);
     }
 
     @Override
     public void updatePoints(int points) {
-        pointsEarned.setText(String.valueOf(points));
+        pointsEarned.setText(String.valueOf("Points: " + points));
     }
 
     //Checks if new high score is achieved
@@ -219,20 +245,11 @@ public class MainActivity extends AppCompatActivity implements TheView {
             //Only informs of high score once per game
             if (showOnce) {
                 highScoreJingle.start();
-//                Toast.makeText(this, "New High Score!", Toast.LENGTH_SHORT).show();
-//                Toast toast = Toast.makeText(MainActivity.this, "    New High Score!    ",
-//                        Toast.LENGTH_SHORT);
-//                View toastView = toast.getView();
-//                TextView toastMessage = toastView.findViewById(android.R.id.message);
-//
-//                //Toast customization
-//                toastMessage.setTextColor(Color.BLACK);
-//                toastView.setBackgroundColor(Color.CYAN);
-//                toast.show();
                 String newScoreString = "    New High Score!    ";
                 showToast(newScoreString);
                 showOnce = false;
             }
+            thePresenter.updateHighScore(i);
         }
     }
 
@@ -249,16 +266,32 @@ public class MainActivity extends AppCompatActivity implements TheView {
         final Button btnHighScores = dialog.findViewById(R.id.splashHighScores);
         final Button btnMusic = dialog.findViewById(R.id.splashMusic);
 
+        score.setVisibility(GONE);
+        pointsEarned.setVisibility(GONE);
+
+        if (playMusic) {
+            btnMusic.setText(R.string.music_on);
+            backgroundMusic.setVolume(1.0f, 1.0f);
+            System.out.println("Music on");
+        } else {
+            btnMusic.setText(R.string.music_off);
+            backgroundMusic.setVolume(0.0f, 0.0f);
+            System.out.println("Music off");
+        }
+
         //Begin game play
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog.dismiss();
+                updateScore("0/1");
+                updatePoints(0);
+                showOnce = true;
+                score.setVisibility(VISIBLE);
+                pointsEarned.setVisibility(VISIBLE);
+
                 //Gameplay business logic is handled in the presenter
                 thePresenter.sequence(btn, highScoreViewModel);
-                //Shows score
-                score.setVisibility(VISIBLE);
-                dialog.dismiss();
-                score.setText("0/1");
             }
         });
 
@@ -276,19 +309,20 @@ public class MainActivity extends AppCompatActivity implements TheView {
             @Override
             public void onClick(View v) {
 
-                final Button splashMusic = dialog.findViewById(R.id.splashMusic);
-
                 if (playMusic) {
-                    splashMusic.setText(R.string.music_off);
+                    btnMusic.setText(R.string.music_off);
                     backgroundMusic.setVolume(0.0f, 0.0f);
                     System.out.println("Music off");
+                    preferences.edit().putBoolean(MainActivity.MUSIC_STATE_KEY, false).apply();
                     playMusic = false;
                 } else {
-                    splashMusic.setText(R.string.music_on);
+                    btnMusic.setText(R.string.music_on);
                     backgroundMusic.setVolume(1.0f, 1.0f);
                     System.out.println("Music on");
+                    preferences.edit().putBoolean(MainActivity.MUSIC_STATE_KEY, true).apply();
                     playMusic = true;
                 }
+
             }
         });
         dialog.show();
@@ -296,7 +330,7 @@ public class MainActivity extends AppCompatActivity implements TheView {
 
     @Override
     public void showToast(String buttonsRememberedString) {
-        Toast toast = Toast.makeText(MainActivity.this, buttonsRememberedString,
+        Toast toast = Toast.makeText(MainActivity.this, "    " + buttonsRememberedString + "    ",
                 Toast.LENGTH_SHORT);
         View toastView = toast.getView();
         TextView toastMessage = toastView.findViewById(android.R.id.message);
@@ -304,6 +338,16 @@ public class MainActivity extends AppCompatActivity implements TheView {
         toastMessage.setTextColor(Color.BLACK);
         toastView.setBackgroundColor(Color.CYAN);
         toast.show();
+    }
+
+    @Override
+    public void toggleBanner(boolean showBanner) {
+        //Banner ad is disabled during game play.
+        if(!showBanner) {
+            bannerAd.setVisibility(GONE);
+        }else{
+            bannerAd.setVisibility(VISIBLE);
+        }
     }
 
     private void highscoresSplash() {
@@ -347,17 +391,6 @@ public class MainActivity extends AppCompatActivity implements TheView {
     @Override
     public void onBackPressed() {
         if (!exitGame) {
-//            Toast.makeText(MainActivity.this, "Press 'back' again to exit",
-//                    Toast.LENGTH_LONG).show();
-//            Toast toast = Toast.makeText(MainActivity.this, "    Press 'back' again to exit    ",
-//                    Toast.LENGTH_SHORT);
-//            View toastView = toast.getView();
-//            TextView toastMessage = toastView.findViewById(android.R.id.message);
-//
-//            //Toast customization
-//            toastMessage.setTextColor(Color.BLACK);
-//            toastView.setBackgroundColor(Color.CYAN);
-//            toast.show();
             String pressBackString = "    Press 'back' again to exit    ";
             showToast(pressBackString);
             exitGame = true;

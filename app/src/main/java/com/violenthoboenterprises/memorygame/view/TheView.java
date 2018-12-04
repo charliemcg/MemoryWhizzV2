@@ -13,4 +13,5 @@ public interface TheView {
     void checkHighScore(int i, int highScore);
     void mainSplash();
     void showToast(String buttonsRememberedString);
+    void toggleBanner(boolean showBanner);
 }

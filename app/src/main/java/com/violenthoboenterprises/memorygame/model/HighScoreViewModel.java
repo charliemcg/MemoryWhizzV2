@@ -34,8 +34,6 @@ public class HighScoreViewModel extends AndroidViewModel {
 
     public LiveData<List<HighScore>> getAllHighScores(){return allHighScores;}
 
-//    public int getSpecificScore(int id) {return repository.getSpecificHighScore(id);}
-
     public int getMinScore() {return getMinScore;}
 
     public HighScore getMinHighScore(int minScore) { return repository.getMinHighScore(minScore);}
